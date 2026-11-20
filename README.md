@@ -78,7 +78,7 @@ update turrell_monitor_status set force_test = true where id = 1;
 ```
 
 On the next run, the function takes the live data, flips one sold-out session to available **in memory only**, runs it
-through the real diff, message builder and webhook, and posts a message labelled **🧪 TEST ALERT (not real)**. The flag
+through the real diff, message builder and webhook, and posts an amber embed titled **TEST · Tickets open…**. The flag
 resets itself after Discord accepts the message. The fake state is never saved.
 
 ## Stop / pause

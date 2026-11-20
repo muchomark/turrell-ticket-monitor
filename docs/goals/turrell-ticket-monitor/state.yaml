@@ -73,7 +73,7 @@ visual_board:
     url: "http://goalbuddy.localhost:41737/turrell-ticket-monitor/"
     command: "node ~/.claude/skills/goalbuddy/surfaces/local-goal-board/scripts/local-goal-board.mjs --goal docs/goals/turrell-ticket-monitor"
 
-active_task: T005
+active_task: T006
 
 tasks:
   - id: T001
@@ -203,7 +203,7 @@ tasks:
   - id: T005
     type: pm
     assignee: PM
-    status: active
+    status: done
     reasoning_hint: medium
     objective: "Provision and deploy: in the user's NEW free-plan Supabase org (not Pro org le gaz), create project 'turrell-monitor' at $0, ask user to paste Discord webhook URL, set DISCORD_WEBHOOK_URL secret, deploy turrell-check, apply migrations, run one manual invocation and confirm Eventbrite fetch succeeds from the edge."
     constraints:
@@ -212,11 +212,25 @@ tasks:
       - "Never modify project 'legaz'."
     expected_output:
       - "Project ref, deployed function version, migration list, first invocation result"
-    receipt: null
+    receipt:
+      result: done
+      summary: "User approved creating free org 'turrell' (ziqeftxfptahwsatgdlv) via browser. Supabase MCP could not see it, so switched to Supabase CLI 3.2.0 via npx (user ran supabase login). Created project turrell-monitor (ref <project-ref>, us-east-1, Free, $0). Deployed turrell-check --no-verify-jwt, created Vault turrell_project_url, pushed both migrations (3 cron jobs active). First cron run from the edge: HTTP 200, 279 sessions, 0 available, no errors, so Eventbrite does not block Supabase egress. DISCORD_WEBHOOK_URL secret set from user-provided URL via temp env file (deleted). DB password in gitignored .env only."
+      commands:
+        - cmd: "supabase projects create turrell-monitor --org-id ziqeftxfptahwsatgdlv --region us-east-1 --yes"
+          status: pass
+        - cmd: "supabase functions deploy turrell-check --no-verify-jwt --use-api"
+          status: pass
+        - cmd: "supabase db push --remote"
+          status: pass
+        - cmd: "select * from turrell_monitor_status"
+          status: pass
+          detail: "last_ok_at 2026-11-20 17:48:07Z, sessions_total 279, last_error null"
+        - cmd: "supabase secrets set DISCORD_WEBHOOK_URL"
+          status: pass
   - id: T006
     type: worker
     assignee: Worker
-    status: queued
+    status: active
     reasoning_hint: medium
     objective: "Live verification and fixes: confirm >=10 min of successful pg_cron runs and fresh per-slot state; trigger a forced/simulated 'available' run through the deployed parser+alert path so a real Discord alert arrives; get user confirmation; reset state afterwards; fix any defects found."
     allowed_files:
@@ -236,14 +250,19 @@ tasks:
   - id: T007
     type: pm
     assignee: PM
-    status: queued
+    status: done
     reasoning_hint: low
     objective: "Publish: gh repo create muchomark/turrell-ticket-monitor --public, commit (with Co-Authored-By trailer), push; if a GitHub Actions keep-alive was chosen, ask user to run `gh auth refresh -s workflow` first."
     constraints:
       - "Re-scan for secrets before first push."
     expected_output:
       - "Public repo URL and pushed commit SHA"
-    receipt: null
+    receipt:
+      result: done
+      summary: "Pulled forward while T005 waits on the user's free org. Created public repo https://github.com/muchomark/turrell-ticket-monitor and pushed main @ 13ee097. Secret scan clean before push. No GH Actions workflow needed, so no workflow scope required."
+      evidence:
+        - "https://github.com/muchomark/turrell-ticket-monitor"
+        - "13ee097"
   - id: T999
     type: judge
     assignee: Judge

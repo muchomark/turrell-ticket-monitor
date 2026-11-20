@@ -8,7 +8,6 @@ export const EVENT_URL =
 export const END_UTC_MS = Date.parse("2027-01-30T23:00:00Z");
 export const MAX_PAGES = 5;
 export const FETCH_TIMEOUT_MS = 15_000;
-export const MAX_LISTED = 15;
 export const DISCORD_LIMIT = 2000;
 export const USER_AGENT =
   "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0 Safari/537.36";
@@ -186,40 +185,114 @@ export function diff(sessions: Session[], stored: Map<string, boolean>): DiffRes
 const WEEKDAYS = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
 const MONTHS = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
 
-/** "2026-11-20T15:00:00" (America/New_York wall time) -> "Fri Nov 20, 3:00 PM ET" */
-export function formatLocal(local: string): string {
+/** Split an America/New_York wall time "2026-11-20T15:00:00" into { day: "Fri, Nov 20", time: "3:00 PM" }. */
+export function localParts(local: string): { day: string; time: string } {
   const m = /^(\d{4})-(\d{2})-(\d{2})T(\d{2}):(\d{2})/.exec(local);
-  if (!m) return local;
+  if (!m) return { day: local, time: "" };
   const [, y, mo, d, h, mi] = m.map(Number) as unknown as number[];
   const wd = WEEKDAYS[new Date(Date.UTC(y, mo - 1, d)).getUTCDay()];
   const hour12 = h % 12 === 0 ? 12 : h % 12;
-  const ampm = h < 12 ? "AM" : "PM";
-  return `${wd} ${MONTHS[mo - 1]} ${d}, ${hour12}:${String(mi).padStart(2, "0")} ${ampm} ET`;
+  return {
+    day: `${wd}, ${MONTHS[mo - 1]} ${d}`,
+    time: `${hour12}:${String(mi).padStart(2, "0")} ${h < 12 ? "AM" : "PM"}`,
+  };
+}
+
+/** "2026-11-20T15:00:00" -> "Fri, Nov 20 · 3:00 PM ET" */
+export function formatLocal(local: string): string {
+  const { day, time } = localParts(local);
+  return time ? `${day} · ${time} ET` : day;
+}
+
+export const COLOR_LIVE = 0x22c55e; // green: real availability
+export const COLOR_TEST = 0xf59e0b; // amber: test alert
+const EMBED_DESC_LIMIT = 4096;
+const MAX_SESSIONS_IN_EMBED = 40;
+
+export interface DiscordEmbed {
+  title: string;
+  url: string;
+  description: string;
+  color: number;
+  footer: { text: string };
+  timestamp: string;
 }
 
 export interface DiscordPayload {
+  username: string;
   content: string;
+  embeds: DiscordEmbed[];
   allowed_mentions: { parse: never[] };
 }
 
-/** C6: one message, <=2000 chars, no mentions, links wrapped in <> to suppress embeds. */
-export function buildMessage(opened: Session[], opts: { test?: boolean } = {}): DiscordPayload {
-  const header = (opts.test ? "🧪 **TEST ALERT (not real)** — " : "") +
-    `🎟️ **Tickets available: James Turrell at Almine Rech NY** — ${opened.length} session${
-      opened.length === 1 ? "" : "s"
-    } just opened`;
-  const footer = `Event page: <${EVENT_URL}>`;
-  let listed = Math.min(opened.length, MAX_LISTED);
-  for (;;) {
-    const lines = opened.slice(0, listed).map((s) => `• ${formatLocal(s.startLocal)} — <${s.url}>`);
-    const more = opened.length - listed;
-    if (more > 0) lines.push(`+${more} more`);
-    const content = [header, ...lines, footer].join("\n");
-    if (content.length <= DISCORD_LIMIT || listed === 0) {
-      return { content: content.slice(0, DISCORD_LIMIT), allowed_mentions: { parse: [] } };
+/** Group sessions by day: "**Sat, Nov 21**\n[11:00 AM](url) · [1:00 PM](url)". */
+function sessionLines(sessions: Session[]): string[] {
+  const lines: string[] = [];
+  let currentDay = "";
+  let slots: string[] = [];
+  const flush = () => {
+    if (currentDay) lines.push(`**${currentDay}**\n${slots.join("  ·  ")}`);
+  };
+  for (const s of sessions) {
+    const { day, time } = localParts(s.startLocal);
+    if (day !== currentDay) {
+      flush();
+      currentDay = day;
+      slots = [];
     }
-    listed--;
+    slots.push(`[${time || s.startLocal}](${s.url})`);
   }
+  flush();
+  return lines;
+}
+
+/**
+ * C6: one message, no mentions. A short plain-text line drives the push-notification preview;
+ * the embed carries sessions grouped by day (each time is a link) and one primary CTA.
+ */
+export function buildMessage(
+  opened: Session[],
+  opts: { test?: boolean; nowIso?: string } = {},
+): DiscordPayload {
+  const n = opened.length;
+  const sessionsWord = `${n} free session${n === 1 ? "" : "s"}`;
+  const first = opened[0];
+  const ctaUrl = first?.url ?? EVENT_URL;
+  const firstWhen = first ? formatLocal(first.startLocal) : "";
+
+  const content = opts.test
+    ? `TEST · This is what a Turrell ticket alert looks like. No tickets opened.`
+    : `Turrell tickets just opened: ${sessionsWord} at Almine Rech NY. Earliest: ${firstWhen}`;
+
+  const intro = opts.test
+    ? "**This is a test.** One sold-out session was flipped in memory to preview the alert. Nothing is actually available."
+    : `**${sessionsWord}** just went from sold out to available. These sold out before, so book now.`;
+  const cta = opts.test ? `[Open the event page →](${EVENT_URL})` : `**[Reserve a free slot →](${ctaUrl})**`;
+
+  let shown = Math.min(n, MAX_SESSIONS_IN_EMBED);
+  let description = "";
+  for (;;) {
+    const parts = [intro, "", ...sessionLines(opened.slice(0, shown))];
+    if (n > shown) parts.push(`+${n - shown} more on the [event page](${EVENT_URL})`);
+    parts.push("", cta);
+    description = parts.join("\n");
+    if (description.length <= EMBED_DESC_LIMIT || shown <= 1) break;
+    shown--;
+  }
+
+  return {
+    username: "Turrell Watch",
+    content: content.slice(0, DISCORD_LIMIT),
+    embeds: [{
+      title: `${opts.test ? "TEST · " : ""}Tickets open: James Turrell at Almine Rech`,
+      url: opts.test ? EVENT_URL : ctaUrl,
+      description: description.slice(0, EMBED_DESC_LIMIT),
+      color: opts.test ? COLOR_TEST : COLOR_LIVE,
+      footer: { text: "361 Broadway, Tribeca · Free, timed entry · Checked every minute" },
+      timestamp: opts.nowIso ?? new Date().toISOString(),
+    }],
+    allowed_mentions: { parse: [] },
+  };
 }
 
 export function isExpired(nowMs: number): boolean {
@@ -233,9 +306,10 @@ export function isExpired(nowMs: number): boolean {
 export function flipForTest(
   sessions: Session[],
   stored: Map<string, boolean>,
+  nowMs: number,
 ): { sessions: Session[]; flippedId: string } | null {
   const candidate = sessions
-    .filter((s) => s.state === "unavailable" && stored.get(s.id) === false)
+    .filter((s) => s.state === "unavailable" && stored.get(s.id) === false && Date.parse(s.startUtc) > nowMs)
     .sort((a, b) => a.startUtc.localeCompare(b.startUtc))[0];
   if (!candidate) return null;
   return {

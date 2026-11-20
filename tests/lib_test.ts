@@ -2,6 +2,8 @@ import { assert, assertEquals, assertRejects, assertStringIncludes } from "@std/
 import {
   buildMessage,
   classify,
+  COLOR_LIVE,
+  COLOR_TEST,
   diff,
   END_UTC_MS,
   EVENT_URL,
@@ -9,6 +11,7 @@ import {
   flipForTest,
   formatLocal,
   isExpired,
+  localParts,
   type Session,
   UpstreamError,
   validateRun,
@@ -166,28 +169,53 @@ Deno.test("challenge HTML, HTTP 403/429 and bad JSON throw UpstreamError", async
   await assertRejects(() => fetchAllPages(fakeFetch(p1, html).fn), UpstreamError);
 });
 
-Deno.test("message: no mentions, links, <=2000 chars even with 25 sessions", async () => {
+Deno.test("message: styled embed, grouped by day, no mentions, within Discord limits", async () => {
   const { sessions } = await sessionsFrom();
   const opened = sessions.slice(0, 25).map((s) => ({ ...s, state: "available" as const }));
-  const msg = buildMessage(opened);
-  assert(msg.content.length <= 2000, `length ${msg.content.length}`);
+  const msg = buildMessage(opened, { nowIso: "2026-11-20T18:00:00.000Z" });
   assertEquals(msg.allowed_mentions, { parse: [] });
-  assert(!msg.content.includes("@everyone") && !msg.content.includes("@here"));
-  const listed = msg.content.split("\n").filter((l) => l.startsWith("• ")).length;
-  const more = Number(/\+(\d+) more/.exec(msg.content)?.[1]);
-  assert(listed >= 10 && listed <= 15, `listed ${listed}`);
-  assertEquals(listed + more, 25);
-  assertStringIncludes(msg.content, `<${EVENT_URL}>`);
-  assertStringIncludes(msg.content, "Fri Nov 20, 12:00 PM ET");
-  const one = buildMessage(opened.slice(0, 1));
-  assertStringIncludes(one.content, "1 session just opened");
-  assertStringIncludes(one.content, `<${opened[0].url}>`);
+  assertEquals(msg.username, "Turrell Watch");
+  assert(msg.content.length <= 2000);
+  assertStringIncludes(msg.content, "25 free sessions");
+  assertStringIncludes(msg.content, "Earliest: Fri, Nov 20 · 12:00 PM ET");
+  const e = msg.embeds[0];
+  assertEquals(e.color, COLOR_LIVE);
+  assertEquals(e.url, opened[0].url);
+  assertEquals(e.timestamp, "2026-11-20T18:00:00.000Z");
+  assert(e.description.length <= 4096 && e.title.length <= 256);
+  // day headers + each time is a masked link to its session
+  assertStringIncludes(e.description, "**Fri, Nov 20**");
+  assertStringIncludes(e.description, "**Sat, Nov 21**");
+  assertStringIncludes(e.description, `[12:00 PM](${opened[0].url})`);
+  assertEquals(
+    (e.description.match(/\]\(https:\/\/www\.eventbrite\.com\/e\/[^)]+-tickets-\d+\)/g) ?? []).length,
+    25 + 1,
+  );
+  assertStringIncludes(e.description, `**[Reserve a free slot →](${opened[0].url})**`);
+  const all = JSON.stringify(msg);
+  assert(!all.includes("@everyone") && !all.includes("@here"));
+  assert(JSON.stringify(e).length < 6000);
+  // singular copy
+  assertStringIncludes(buildMessage(opened.slice(0, 1)).content, "1 free session at");
 });
 
-Deno.test("formatLocal renders ET wall time", () => {
-  assertEquals(formatLocal("2027-01-30T17:00:00"), "Sat Jan 30, 5:00 PM ET");
-  assertEquals(formatLocal("2026-11-21T11:00:00"), "Sat Nov 21, 11:00 AM ET");
-  assertEquals(formatLocal("2026-11-21T12:30:00"), "Sat Nov 21, 12:30 PM ET");
+Deno.test("message: very many sessions are capped with an event-page link", async () => {
+  const { sessions } = await sessionsFrom();
+  const opened = sessions.map((s) => ({ ...s, state: "available" as const }));
+  const e = buildMessage(opened).embeds[0];
+  assert(e.description.length <= 4096);
+  const shown =
+    (e.description.match(/\]\(https:\/\/www\.eventbrite\.com\/e\/[^)]+-tickets-\d+\)/g) ?? []).length - 2; // minus CTA + "event page" links
+  const more = Number(/\+(\d+) more on the \[event page\]/.exec(e.description)?.[1]);
+  assert(shown >= 20 && shown <= 40, `shown ${shown}`);
+  assertEquals(shown + more, 279);
+});
+
+Deno.test("formatLocal / localParts render ET wall time", () => {
+  assertEquals(formatLocal("2027-01-30T17:00:00"), "Sat, Jan 30 · 5:00 PM ET");
+  assertEquals(formatLocal("2026-11-21T11:00:00"), "Sat, Nov 21 · 11:00 AM ET");
+  assertEquals(localParts("2026-11-21T12:30:00"), { day: "Sat, Nov 21", time: "12:30 PM" });
+  assertEquals(localParts("2026-11-22T00:00:00").time, "12:00 AM");
 });
 
 Deno.test("isExpired boundary at 2027-01-30T23:00Z", () => {
@@ -200,15 +228,23 @@ Deno.test("isExpired boundary at 2027-01-30T23:00Z", () => {
 Deno.test("force test: flips one stored-sold-out session through real diff, labelled TEST", async () => {
   const { sessions } = await sessionsFrom();
   const store = soldOutStore(sessions);
-  const flipped = flipForTest(sessions, store)!;
+  const flipped = flipForTest(sessions, store, NOW)!;
   assert(flipped);
   // original snapshot untouched (never persisted)
   assertEquals(sessions.filter((s) => s.state === "available").length, 0);
   const d = diff(flipped.sessions, store);
   assertEquals(d.opened.map((s) => s.id), [flipped.flippedId]);
   const msg = buildMessage(d.opened, { test: true });
-  assertStringIncludes(msg.content, "TEST ALERT");
+  assertStringIncludes(msg.content, "TEST");
+  assertStringIncludes(msg.content, "No tickets opened");
+  assert(msg.embeds[0].title.startsWith("TEST · "));
+  assertEquals(msg.embeds[0].color, COLOR_TEST);
+  assertStringIncludes(msg.embeds[0].description, "This is a test.");
   assertEquals(msg.allowed_mentions, { parse: [] });
   // nothing flippable on an empty store
-  assertEquals(flipForTest(sessions, new Map()), null);
+  assertEquals(flipForTest(sessions, new Map(), NOW), null);
+  // never flips a session that has already started
+  const later = Date.parse("2026-11-20T19:30:00Z");
+  const f2 = flipForTest(sessions, store, later)!;
+  assert(Date.parse(f2.sessions.find((s) => s.id === f2.flippedId)!.startUtc) > later);
 });

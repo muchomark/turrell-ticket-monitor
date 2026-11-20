@@ -128,7 +128,7 @@ Deno.serve(async (req) => {
 
   // C7: force test — flipped snapshot goes through the real diff + sender, never persisted.
   if (status.force_test) {
-    const flipped = flipForTest(sessions, stored);
+    const flipped = flipForTest(sessions, stored, checkedAt);
     if (!flipped) {
       await patchStatus({ last_error: "force_test: no stored sold-out session to flip" });
       return json({ error: "force_test: nothing to flip" });
