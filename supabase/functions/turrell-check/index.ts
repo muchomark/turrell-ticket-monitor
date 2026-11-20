@@ -1,15 +1,18 @@
 // Supabase Edge Function: checks the Eventbrite series and posts a Discord alert
-// whenever any session goes sold-out -> available. Invoked by pg_cron every minute.
+// whenever any session goes sold-out -> available. Invoked by pg_cron every 30 seconds.
 import "jsr:@supabase/functions-js@2/edge-runtime.d.ts";
 import { createClient } from "npm:@supabase/supabase-js@2";
 import {
   backoffMinutes,
+  buildHealthMessage,
   buildMessage,
   classify,
   diff,
   type DiscordPayload,
+  type FailureKind,
   fetchAllPages,
   flipForTest,
+  healthAlertDue,
   isExpired,
   UpstreamError,
   validateRun,
@@ -83,12 +86,75 @@ Deno.serve(async (req) => {
   const patchStatus = (patch: Record<string, unknown>) =>
     db.from("turrell_monitor_status").update(patch).eq("id", 1);
 
+  // Health alerts: Discord message when checks keep failing (blocked/broken), reminder every 6h, recovery note.
+  async function healthOnFailure(
+    kind: FailureKind,
+    detail: string,
+    failures: number,
+    nextRetryIso: string | null,
+  ) {
+    const due = healthAlertDue(
+      failures,
+      status.health_state ?? "ok",
+      status.health_alerted_at ? Date.parse(status.health_alerted_at) : null,
+      Date.now(),
+    );
+    if (!due) return;
+    const downSince = status.health_down_since ?? status.last_ok_at ?? new Date().toISOString();
+    const sent = await sendDiscord(buildHealthMessage(due, {
+      kind,
+      detail,
+      failures,
+      downSinceIso: downSince,
+      nextRetryIso,
+      nowIso: new Date().toISOString(),
+    }));
+    if (sent.ok) {
+      await patchStatus({
+        health_state: "down",
+        health_alerted_at: new Date().toISOString(),
+        health_down_since: downSince,
+      });
+    } else console.error("health alert failed", sent.detail);
+  }
+
+  async function healthOnSuccess() {
+    if (status.health_state !== "down") return;
+    const sent = await sendDiscord(buildHealthMessage("recovered", {
+      downSinceIso: status.health_down_since,
+      nowIso: new Date().toISOString(),
+    }));
+    if (sent.ok) {
+      await patchStatus({
+        health_state: "ok",
+        health_down_since: null,
+        health_alerted_at: new Date().toISOString(),
+      });
+    }
+  }
+
+  // SQL-only test hook for the health alert: update turrell_monitor_status set force_health_test = true;
+  if (status.force_health_test) {
+    const nowIso = new Date().toISOString();
+    const sent = await sendDiscord(buildHealthMessage("down", {
+      kind: "blocked",
+      detail: "HTTP 403 on page 1 (simulated)",
+      failures: 2,
+      downSinceIso: new Date(Date.now() - 90_000).toISOString(),
+      nextRetryIso: new Date(Date.now() + 4 * 60_000).toISOString(),
+      nowIso,
+      test: true,
+    }));
+    if (sent.ok) await patchStatus({ force_health_test: false });
+    return json({ health_test: true, discord: sent.detail });
+  }
+
   if (status.backoff_until && Date.parse(status.backoff_until) > now) {
     return json({ skipped: "backoff", until: status.backoff_until });
   }
 
-  // Jitter 0-8s so requests don't land exactly on the minute.
-  await new Promise((r) => setTimeout(r, Math.floor(Math.random() * 8000)));
+  // Jitter 0-4s so requests don't land exactly on the schedule.
+  await new Promise((r) => setTimeout(r, Math.floor(Math.random() * 4000)));
 
   let events, objectCount;
   try {
@@ -97,13 +163,22 @@ Deno.serve(async (req) => {
     const err = e as Error;
     const failures = (status.consecutive_failures ?? 0) + 1;
     const backoff = err instanceof UpstreamError && err.backoff;
+    const backoffUntil = backoff
+      ? new Date(Date.now() + backoffMinutes(failures) * 60_000).toISOString()
+      : null;
     await patchStatus({
       last_checked_at: new Date().toISOString(),
-      last_error: err.message,
+      last_error: err.message.slice(0, 500),
       consecutive_failures: failures,
-      backoff_until: backoff ? new Date(Date.now() + backoffMinutes(failures) * 60_000).toISOString() : null,
+      backoff_until: backoffUntil,
     });
     console.error("fetch failed", err.message);
+    await healthOnFailure(
+      err instanceof UpstreamError ? err.kind : "network",
+      err.message,
+      failures,
+      backoffUntil,
+    );
     return json({ error: err.message, backoff });
   }
 
@@ -117,8 +192,11 @@ Deno.serve(async (req) => {
       consecutive_failures: (status.consecutive_failures ?? 0) + 1,
     });
     console.error("invalid run", invalid);
+    await healthOnFailure("format", `invalid run: ${invalid}`, (status.consecutive_failures ?? 0) + 1, null);
     return json({ error: invalid });
   }
+
+  await healthOnSuccess();
 
   const { data: rows, error: readErr } = await db
     .from("turrell_slot_state")

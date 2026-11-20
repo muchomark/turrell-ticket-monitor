@@ -317,6 +317,24 @@ tasks:
         - "Free-project pausing after ~7 days is unconfirmed. Check turrell_monitor_status.last_ok_at in a week."
         - "Errors are not sent to Discord (owner choice); health is visible only in turrell_monitor_status."
 
+# Post-completion follow-up (owner request, 2026-11-20)
+followups:
+  - id: T008
+    type: pm
+    assignee: PM
+    status: done
+    objective: "Owner asked to use a provided proxy list, then (after the proxies proved unreachable) to stay direct-only, avoid getting blocked, and get a Discord alert if the monitor is blocked."
+    receipt:
+      result: done
+      summary: "Built failover-only proxy routing. All tested proxies refused TCP from both the Mac and Supabase egress (Supabase runtime does support Deno.createHttpClient). Owner chose direct-only, so the proxy code and the PROXY_LIST secret were removed (migration 0004 drops the columns). Cadence moved to 30s (about 4 req/min from one IP, jitter, backoff on 403/429/5xx/challenge/timeout, no IP rotation). Added Discord health alerts: red embed after 2 consecutive failures (blocked / rate-limited / unreachable / format changed), 6h reminders, blue recovery embed, SQL test hook force_health_test. 23/23 tests pass. Live: test health alert discord 200; normal runs healthy."
+      commands:
+        - cmd: deno test --allow-read
+          status: pass
+          detail: "23 passed"
+        - cmd: "force_health_test run"
+          status: pass
+          detail: "discord 200 at 18:15:00Z; next run at 18:15:30Z healthy (278 sessions)"
+
 checks:
   dirty_fingerprint: unknown
   last_verification:

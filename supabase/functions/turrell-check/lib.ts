@@ -34,11 +34,31 @@ export function seriesUrl(continuation?: string): string {
 }
 
 /** Raised for upstream failures that should trigger Eventbrite backoff. */
+/**
+ * blocked      403 / bot-challenge HTML: Eventbrite is refusing our requests -> back off, alert.
+ * network      connection/timeout failure -> back off.
+ * rate_limited 429: the site asks us to slow down -> back off.
+ * server       5xx -> back off.
+ * format       unexpected payload -> record error, no backoff (likely an API change).
+ */
+export type FailureKind = "blocked" | "network" | "rate_limited" | "server" | "format";
+
+/** Raised for upstream failures. */
 export class UpstreamError extends Error {
-  constructor(message: string, readonly status: number | null, readonly backoff: boolean) {
+  constructor(message: string, readonly status: number | null, readonly kind: FailureKind) {
     super(message);
     this.name = "UpstreamError";
   }
+  get backoff(): boolean {
+    return this.kind !== "format";
+  }
+}
+
+export function kindForStatus(status: number): FailureKind {
+  if (status === 429) return "rate_limited";
+  if (status === 403 || status === 401 || status === 407) return "blocked";
+  if (status >= 500) return "server";
+  return "format";
 }
 
 export type FetchFn = (url: string, init?: RequestInit) => Promise<Response>;
@@ -46,6 +66,7 @@ export type FetchFn = (url: string, init?: RequestInit) => Promise<Response>;
 /** Fetch every page of the series listing. Throws UpstreamError on any failure (fail closed). */
 export async function fetchAllPages(
   fetchFn: FetchFn,
+  timeoutMs: number = FETCH_TIMEOUT_MS,
 ): Promise<{ events: RawEvent[]; objectCount: number }> {
   const events: RawEvent[] = [];
   let continuation: string | undefined;
@@ -55,28 +76,31 @@ export async function fetchAllPages(
     try {
       res = await fetchFn(seriesUrl(continuation), {
         headers: { "User-Agent": USER_AGENT, "Accept": "application/json" },
-        signal: AbortSignal.timeout(FETCH_TIMEOUT_MS),
+        signal: AbortSignal.timeout(timeoutMs),
       });
     } catch (e) {
-      throw new UpstreamError(`network error: ${(e as Error).message}`, null, true);
+      throw new UpstreamError(`network error: ${(e as Error).message}`, null, "network");
     }
     const body = await res.text();
     if (!res.ok) {
-      const backoff = res.status === 403 || res.status === 429 || res.status >= 500;
-      throw new UpstreamError(`HTTP ${res.status} on page ${page + 1}`, res.status, backoff);
+      throw new UpstreamError(
+        `HTTP ${res.status} on page ${page + 1}`,
+        res.status,
+        kindForStatus(res.status),
+      );
     }
     const trimmed = body.trimStart();
     if (trimmed.startsWith("<")) {
-      throw new UpstreamError(`non-JSON (HTML/challenge) on page ${page + 1}`, res.status, true);
+      throw new UpstreamError(`non-JSON (HTML/challenge) on page ${page + 1}`, res.status, "blocked");
     }
     let json: RawEvent;
     try {
       json = JSON.parse(body);
     } catch {
-      throw new UpstreamError(`invalid JSON on page ${page + 1}`, res.status, false);
+      throw new UpstreamError(`invalid JSON on page ${page + 1}`, res.status, "format");
     }
     if (!Array.isArray(json.events)) {
-      throw new UpstreamError(`missing events[] on page ${page + 1}`, res.status, false);
+      throw new UpstreamError(`missing events[] on page ${page + 1}`, res.status, "format");
     }
     events.push(...json.events);
     const p = json.pagination ?? {};
@@ -87,7 +111,7 @@ export async function fetchAllPages(
     }
     return { events, objectCount };
   }
-  throw new UpstreamError(`more than ${MAX_PAGES} pages`, null, false);
+  throw new UpstreamError(`more than ${MAX_PAGES} pages`, null, "format");
 }
 
 /** C2: strict availability rule. */
@@ -395,6 +419,113 @@ export function buildMessage(
   if (shown < groups.length) embed.fields!.push(moreField(groups.length - shown));
   embed.fields!.push(cta);
   return wrap(embed);
+}
+
+export const COLOR_DOWN = 0xef4444; // red: monitor blocked/broken
+export const COLOR_RECOVERED = 0x3b82f6; // blue: monitor back
+export const HEALTH_ALERT_AFTER_FAILURES = 2;
+export const HEALTH_REMINDER_HOURS = 6;
+
+const DOWN_COPY: Record<FailureKind, { title: string; todo: string }> = {
+  blocked: {
+    title: "Turrell Watch is blocked by Eventbrite",
+    todo: "Eventbrite is refusing requests from the monitor's server. It's backing off on its own. " +
+      "If this lasts more than a few hours, the server's IP is likely blocked and the checker needs to move.",
+  },
+  rate_limited: {
+    title: "Turrell Watch is being rate-limited",
+    todo:
+      "Eventbrite asked the monitor to slow down. It's backing off on its own; no action needed unless this persists.",
+  },
+  network: {
+    title: "Turrell Watch can't reach Eventbrite",
+    todo: "Requests are timing out or failing to connect. This usually clears on its own.",
+  },
+  server: {
+    title: "Eventbrite is returning errors",
+    todo: "Eventbrite's API is failing (5xx). This usually clears on its own.",
+  },
+  format: {
+    title: "Turrell Watch is broken: Eventbrite's data changed",
+    todo: "The response no longer matches what the monitor expects. The code needs an update.",
+  },
+};
+
+const discordTime = (iso: string, style: "R" | "t" | "f" = "R") =>
+  `<t:${Math.floor(Date.parse(iso) / 1000)}:${style}>`;
+
+/** Health alerts: monitor went down (or is still down), or recovered. Embed only, no mentions. */
+export function buildHealthMessage(
+  event: "down" | "reminder" | "recovered",
+  info: {
+    kind?: FailureKind;
+    detail?: string;
+    failures?: number;
+    downSinceIso?: string | null;
+    nextRetryIso?: string | null;
+    nowIso: string;
+    test?: boolean;
+  },
+): DiscordPayload {
+  const testPrefix = info.test ? "TEST · " : "";
+  const testNote = info.test ? "**Test alert.** Nothing is actually wrong.\n\n" : "";
+  const footer = { text: "Turrell Watch health · Errors only alert after 2 failed checks in a row" };
+  if (event === "recovered") {
+    const since = info.downSinceIso ? ` (down since ${discordTime(info.downSinceIso, "t")})` : "";
+    return {
+      username: "Turrell Watch",
+      embeds: [{
+        title: `${testPrefix}Turrell Watch is back`,
+        url: EVENT_URL,
+        description: `${testNote}Checks are succeeding again${since}. Ticket alerts are active.`,
+        color: COLOR_RECOVERED,
+        footer,
+        timestamp: info.nowIso,
+      }],
+      allowed_mentions: { parse: [] },
+    };
+  }
+  const kind = info.kind ?? "network";
+  const copy = DOWN_COPY[kind];
+  const lines = [
+    `${testNote}**You won't get ticket alerts until this clears.**`,
+    "",
+    `**What happened:** ${(info.detail ?? kind).slice(0, 300)}`,
+    `**Failing since:** ${info.downSinceIso ? discordTime(info.downSinceIso) : "just now"}` +
+    (info.failures ? ` · ${info.failures} failed checks in a row` : ""),
+  ];
+  if (info.nextRetryIso) {
+    lines.push(`**Next retry:** ${discordTime(info.nextRetryIso)} (backing off automatically)`);
+  }
+  lines.push(`**What to do:** ${copy.todo}`);
+  if (event === "down") lines.push("", "You'll get a message when it recovers.");
+  return {
+    username: "Turrell Watch",
+    embeds: [{
+      title: `${testPrefix}${event === "reminder" ? "Still down: " : ""}${copy.title}`,
+      url: EVENT_URL,
+      description: lines.join("\n"),
+      color: COLOR_DOWN,
+      footer,
+      timestamp: info.nowIso,
+    }],
+    allowed_mentions: { parse: [] },
+  };
+}
+
+/** Should a failure produce a health alert now? */
+export function healthAlertDue(
+  failures: number,
+  healthState: string | null,
+  lastHealthAlertMs: number | null,
+  nowMs: number,
+): "down" | "reminder" | null {
+  if (failures < HEALTH_ALERT_AFTER_FAILURES) return null;
+  if (healthState !== "down") return "down";
+  if (lastHealthAlertMs === null || nowMs - lastHealthAlertMs >= HEALTH_REMINDER_HOURS * 3_600_000) {
+    return "reminder";
+  }
+  return null;
 }
 
 export function isExpired(nowMs: number): boolean {

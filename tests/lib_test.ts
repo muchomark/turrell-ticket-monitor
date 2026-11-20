@@ -1,8 +1,11 @@
 import { assert, assertEquals, assertRejects, assertStringIncludes } from "@std/assert";
 import {
+  buildHealthMessage,
   buildMessage,
   classify,
+  COLOR_DOWN,
   COLOR_LIVE,
+  COLOR_RECOVERED,
   COLOR_TEST,
   dayLabel,
   diff,
@@ -11,7 +14,9 @@ import {
   fetchAllPages,
   flipForTest,
   formatLocal,
+  healthAlertDue,
   isExpired,
+  kindForStatus,
   localParts,
   nyDate,
   type Session,
@@ -331,4 +336,50 @@ Deno.test("force test: flips one stored-sold-out session through real diff, labe
   const later = Date.parse("2026-11-20T19:30:00Z");
   const f2 = flipForTest(sessions, store, later)!;
   assert(Date.parse(f2.sessions.find((s) => s.id === f2.flippedId)!.startUtc) > later);
+});
+
+// ---- health alerts ----
+Deno.test("health: alert after 2 consecutive failures, reminder every 6h, not before", () => {
+  assertEquals(healthAlertDue(1, "ok", null, NOW), null); // single blip: quiet
+  assertEquals(healthAlertDue(2, "ok", null, NOW), "down");
+  assertEquals(healthAlertDue(5, "down", NOW - 60_000, NOW), null); // already alerted
+  assertEquals(healthAlertDue(50, "down", NOW - 6 * 3_600_000, NOW), "reminder");
+});
+
+Deno.test("health: down message is a red embed with what/when/next/todo and no mentions", () => {
+  const msg = buildHealthMessage("down", {
+    kind: "blocked",
+    detail: "HTTP 403 on page 1",
+    failures: 2,
+    downSinceIso: "2026-11-20T18:00:00Z",
+    nextRetryIso: "2026-11-20T18:04:00Z",
+    nowIso: "2026-11-20T18:01:00Z",
+  });
+  assertEquals(Object.keys(msg).sort(), ["allowed_mentions", "embeds", "username"]);
+  assertEquals(msg.allowed_mentions, { parse: [] });
+  const e = msg.embeds[0];
+  assertEquals(e.title, "Turrell Watch is blocked by Eventbrite");
+  assertEquals(e.color, COLOR_DOWN);
+  assertStringIncludes(e.description, "You won't get ticket alerts until this clears.");
+  assertStringIncludes(e.description, "**What happened:** HTTP 403 on page 1");
+  assertStringIncludes(e.description, `<t:${Date.parse("2026-11-20T18:00:00Z") / 1000}:R>`);
+  assertStringIncludes(e.description, "2 failed checks in a row");
+  assertStringIncludes(e.description, "**Next retry:**");
+  assertStringIncludes(e.description, "You'll get a message when it recovers.");
+});
+
+Deno.test("health: reminder, recovered, format and test variants", () => {
+  const nowIso = "2026-11-20T18:01:00Z";
+  const r = buildHealthMessage("reminder", { kind: "rate_limited", nowIso }).embeds[0];
+  assert(r.title.startsWith("Still down: "));
+  assert(!r.description.includes("when it recovers"));
+  const back = buildHealthMessage("recovered", { downSinceIso: "2026-11-20T17:00:00Z", nowIso }).embeds[0];
+  assertEquals(back.title, "Turrell Watch is back");
+  assertEquals(back.color, COLOR_RECOVERED);
+  assertStringIncludes(back.description, "Ticket alerts are active.");
+  const fmt = buildHealthMessage("down", { kind: "format", nowIso }).embeds[0];
+  assertStringIncludes(fmt.title, "data changed");
+  const t = buildHealthMessage("down", { kind: "blocked", nowIso, test: true }).embeds[0];
+  assert(t.title.startsWith("TEST · "));
+  assertStringIncludes(t.description, "Nothing is actually wrong.");
 });
