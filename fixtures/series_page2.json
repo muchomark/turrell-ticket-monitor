@@ -1,0 +1,2776 @@
+{
+ "pagination": {
+  "object_count": 279,
+  "page_number": 2,
+  "page_size": 200,
+  "page_count": 2,
+  "has_more_items": false
+ },
+ "events": [
+  {
+   "id": "2004632960147",
+   "url": "https://www.eventbrite.com/e/james-turrell-exhibition-at-almine-rech-new-york-tickets-2004632960147",
+   "status": "live",
+   "start": {
+    "timezone": "America/New_York",
+    "utc": "2027-01-15T21:00:00Z",
+    "local": "2027-01-15T16:00:00"
+   },
+   "end": {
+    "timezone": "America/New_York",
+    "utc": "2027-01-15T22:00:00Z",
+    "local": "2027-01-15T17:00:00"
+   },
+   "ticket_availability": {
+    "has_available_tickets": false,
+    "minimum_ticket_price": {
+     "currency": "USD",
+     "value": 0,
+     "major_value": "0.00",
+     "display": "0.00 USD"
+    },
+    "maximum_ticket_price": {
+     "currency": "USD",
+     "value": 0,
+     "major_value": "0.00",
+     "display": "0.00 USD"
+    },
+    "available_minimum_ticket_price": null,
+    "available_maximum_ticket_price": null,
+    "is_sold_out": true,
+    "start_sales_date": null,
+    "waitlist_available": false
+   }
+  },
+  {
+   "id": "2004632961150",
+   "url": "https://www.eventbrite.com/e/james-turrell-exhibition-at-almine-rech-new-york-tickets-2004632961150",
+   "status": "live",
+   "start": {
+    "timezone": "America/New_York",
+    "utc": "2027-01-15T22:00:00Z",
+    "local": "2027-01-15T17:00:00"
+   },
+   "end": {
+    "timezone": "America/New_York",
+    "utc": "2027-01-15T23:00:00Z",
+    "local": "2027-01-15T18:00:00"
+   },
+   "ticket_availability": {
+    "has_available_tickets": false,
+    "minimum_ticket_price": {
+     "currency": "USD",
+     "value": 0,
+     "major_value": "0.00",
+     "display": "0.00 USD"
+    },
+    "maximum_ticket_price": {
+     "currency": "USD",
+     "value": 0,
+     "major_value": "0.00",
+     "display": "0.00 USD"
+    },
+    "available_minimum_ticket_price": null,
+    "available_maximum_ticket_price": null,
+    "is_sold_out": true,
+    "start_sales_date": null,
+    "waitlist_available": false
+   }
+  },
+  {
+   "id": "2004632962153",
+   "url": "https://www.eventbrite.com/e/james-turrell-exhibition-at-almine-rech-new-york-tickets-2004632962153",
+   "status": "live",
+   "start": {
+    "timezone": "America/New_York",
+    "utc": "2027-01-16T16:00:00Z",
+    "local": "2027-01-16T11:00:00"
+   },
+   "end": {
+    "timezone": "America/New_York",
+    "utc": "2027-01-16T17:00:00Z",
+    "local": "2027-01-16T12:00:00"
+   },
+   "ticket_availability": {
+    "has_available_tickets": false,
+    "minimum_ticket_price": {
+     "currency": "USD",
+     "value": 0,
+     "major_value": "0.00",
+     "display": "0.00 USD"
+    },
+    "maximum_ticket_price": {
+     "currency": "USD",
+     "value": 0,
+     "major_value": "0.00",
+     "display": "0.00 USD"
+    },
+    "available_minimum_ticket_price": null,
+    "available_maximum_ticket_price": null,
+    "is_sold_out": true,
+    "start_sales_date": null,
+    "waitlist_available": false
+   }
+  },
+  {
+   "id": "2004632963156",
+   "url": "https://www.eventbrite.com/e/james-turrell-exhibition-at-almine-rech-new-york-tickets-2004632963156",
+   "status": "live",
+   "start": {
+    "timezone": "America/New_York",
+    "utc": "2027-01-16T17:00:00Z",
+    "local": "2027-01-16T12:00:00"
+   },
+   "end": {
+    "timezone": "America/New_York",
+    "utc": "2027-01-16T18:00:00Z",
+    "local": "2027-01-16T13:00:00"
+   },
+   "ticket_availability": {
+    "has_available_tickets": false,
+    "minimum_ticket_price": {
+     "currency": "USD",
+     "value": 0,
+     "major_value": "0.00",
+     "display": "0.00 USD"
+    },
+    "maximum_ticket_price": {
+     "currency": "USD",
+     "value": 0,
+     "major_value": "0.00",
+     "display": "0.00 USD"
+    },
+    "available_minimum_ticket_price": null,
+    "available_maximum_ticket_price": null,
+    "is_sold_out": true,
+    "start_sales_date": null,
+    "waitlist_available": false
+   }
+  },
+  {
+   "id": "2004632964159",
+   "url": "https://www.eventbrite.com/e/james-turrell-exhibition-at-almine-rech-new-york-tickets-2004632964159",
+   "status": "live",
+   "start": {
+    "timezone": "America/New_York",
+    "utc": "2027-01-16T18:00:00Z",
+    "local": "2027-01-16T13:00:00"
+   },
+   "end": {
+    "timezone": "America/New_York",
+    "utc": "2027-01-16T19:00:00Z",
+    "local": "2027-01-16T14:00:00"
+   },
+   "ticket_availability": {
+    "has_available_tickets": false,
+    "minimum_ticket_price": {
+     "currency": "USD",
+     "value": 0,
+     "major_value": "0.00",
+     "display": "0.00 USD"
+    },
+    "maximum_ticket_price": {
+     "currency": "USD",
+     "value": 0,
+     "major_value": "0.00",
+     "display": "0.00 USD"
+    },
+    "available_minimum_ticket_price": null,
+    "available_maximum_ticket_price": null,
+    "is_sold_out": true,
+    "start_sales_date": null,
+    "waitlist_available": false
+   }
+  },
+  {
+   "id": "2004632965162",
+   "url": "https://www.eventbrite.com/e/james-turrell-exhibition-at-almine-rech-new-york-tickets-2004632965162",
+   "status": "live",
+   "start": {
+    "timezone": "America/New_York",
+    "utc": "2027-01-16T19:00:00Z",
+    "local": "2027-01-16T14:00:00"
+   },
+   "end": {
+    "timezone": "America/New_York",
+    "utc": "2027-01-16T20:00:00Z",
+    "local": "2027-01-16T15:00:00"
+   },
+   "ticket_availability": {
+    "has_available_tickets": false,
+    "minimum_ticket_price": {
+     "currency": "USD",
+     "value": 0,
+     "major_value": "0.00",
+     "display": "0.00 USD"
+    },
+    "maximum_ticket_price": {
+     "currency": "USD",
+     "value": 0,
+     "major_value": "0.00",
+     "display": "0.00 USD"
+    },
+    "available_minimum_ticket_price": null,
+    "available_maximum_ticket_price": null,
+    "is_sold_out": true,
+    "start_sales_date": null,
+    "waitlist_available": false
+   }
+  },
+  {
+   "id": "2004632966165",
+   "url": "https://www.eventbrite.com/e/james-turrell-exhibition-at-almine-rech-new-york-tickets-2004632966165",
+   "status": "live",
+   "start": {
+    "timezone": "America/New_York",
+    "utc": "2027-01-16T20:00:00Z",
+    "local": "2027-01-16T15:00:00"
+   },
+   "end": {
+    "timezone": "America/New_York",
+    "utc": "2027-01-16T21:00:00Z",
+    "local": "2027-01-16T16:00:00"
+   },
+   "ticket_availability": {
+    "has_available_tickets": false,
+    "minimum_ticket_price": {
+     "currency": "USD",
+     "value": 0,
+     "major_value": "0.00",
+     "display": "0.00 USD"
+    },
+    "maximum_ticket_price": {
+     "currency": "USD",
+     "value": 0,
+     "major_value": "0.00",
+     "display": "0.00 USD"
+    },
+    "available_minimum_ticket_price": null,
+    "available_maximum_ticket_price": null,
+    "is_sold_out": true,
+    "start_sales_date": null,
+    "waitlist_available": false
+   }
+  },
+  {
+   "id": "2004632967168",
+   "url": "https://www.eventbrite.com/e/james-turrell-exhibition-at-almine-rech-new-york-tickets-2004632967168",
+   "status": "live",
+   "start": {
+    "timezone": "America/New_York",
+    "utc": "2027-01-16T21:00:00Z",
+    "local": "2027-01-16T16:00:00"
+   },
+   "end": {
+    "timezone": "America/New_York",
+    "utc": "2027-01-16T22:00:00Z",
+    "local": "2027-01-16T17:00:00"
+   },
+   "ticket_availability": {
+    "has_available_tickets": false,
+    "minimum_ticket_price": {
+     "currency": "USD",
+     "value": 0,
+     "major_value": "0.00",
+     "display": "0.00 USD"
+    },
+    "maximum_ticket_price": {
+     "currency": "USD",
+     "value": 0,
+     "major_value": "0.00",
+     "display": "0.00 USD"
+    },
+    "available_minimum_ticket_price": null,
+    "available_maximum_ticket_price": null,
+    "is_sold_out": true,
+    "start_sales_date": null,
+    "waitlist_available": false
+   }
+  },
+  {
+   "id": "2004632968171",
+   "url": "https://www.eventbrite.com/e/james-turrell-exhibition-at-almine-rech-new-york-tickets-2004632968171",
+   "status": "live",
+   "start": {
+    "timezone": "America/New_York",
+    "utc": "2027-01-16T22:00:00Z",
+    "local": "2027-01-16T17:00:00"
+   },
+   "end": {
+    "timezone": "America/New_York",
+    "utc": "2027-01-16T23:00:00Z",
+    "local": "2027-01-16T18:00:00"
+   },
+   "ticket_availability": {
+    "has_available_tickets": false,
+    "minimum_ticket_price": {
+     "currency": "USD",
+     "value": 0,
+     "major_value": "0.00",
+     "display": "0.00 USD"
+    },
+    "maximum_ticket_price": {
+     "currency": "USD",
+     "value": 0,
+     "major_value": "0.00",
+     "display": "0.00 USD"
+    },
+    "available_minimum_ticket_price": null,
+    "available_maximum_ticket_price": null,
+    "is_sold_out": true,
+    "start_sales_date": null,
+    "waitlist_available": false
+   }
+  },
+  {
+   "id": "2004632969174",
+   "url": "https://www.eventbrite.com/e/james-turrell-exhibition-at-almine-rech-new-york-tickets-2004632969174",
+   "status": "live",
+   "start": {
+    "timezone": "America/New_York",
+    "utc": "2027-01-19T16:00:00Z",
+    "local": "2027-01-19T11:00:00"
+   },
+   "end": {
+    "timezone": "America/New_York",
+    "utc": "2027-01-19T17:00:00Z",
+    "local": "2027-01-19T12:00:00"
+   },
+   "ticket_availability": {
+    "has_available_tickets": false,
+    "minimum_ticket_price": {
+     "currency": "USD",
+     "value": 0,
+     "major_value": "0.00",
+     "display": "0.00 USD"
+    },
+    "maximum_ticket_price": {
+     "currency": "USD",
+     "value": 0,
+     "major_value": "0.00",
+     "display": "0.00 USD"
+    },
+    "available_minimum_ticket_price": null,
+    "available_maximum_ticket_price": null,
+    "is_sold_out": true,
+    "start_sales_date": null,
+    "waitlist_available": false
+   }
+  },
+  {
+   "id": "2004632970177",
+   "url": "https://www.eventbrite.com/e/james-turrell-exhibition-at-almine-rech-new-york-tickets-2004632970177",
+   "status": "live",
+   "start": {
+    "timezone": "America/New_York",
+    "utc": "2027-01-19T17:00:00Z",
+    "local": "2027-01-19T12:00:00"
+   },
+   "end": {
+    "timezone": "America/New_York",
+    "utc": "2027-01-19T18:00:00Z",
+    "local": "2027-01-19T13:00:00"
+   },
+   "ticket_availability": {
+    "has_available_tickets": false,
+    "minimum_ticket_price": {
+     "currency": "USD",
+     "value": 0,
+     "major_value": "0.00",
+     "display": "0.00 USD"
+    },
+    "maximum_ticket_price": {
+     "currency": "USD",
+     "value": 0,
+     "major_value": "0.00",
+     "display": "0.00 USD"
+    },
+    "available_minimum_ticket_price": null,
+    "available_maximum_ticket_price": null,
+    "is_sold_out": true,
+    "start_sales_date": null,
+    "waitlist_available": false
+   }
+  },
+  {
+   "id": "2004632971180",
+   "url": "https://www.eventbrite.com/e/james-turrell-exhibition-at-almine-rech-new-york-tickets-2004632971180",
+   "status": "live",
+   "start": {
+    "timezone": "America/New_York",
+    "utc": "2027-01-19T18:00:00Z",
+    "local": "2027-01-19T13:00:00"
+   },
+   "end": {
+    "timezone": "America/New_York",
+    "utc": "2027-01-19T19:00:00Z",
+    "local": "2027-01-19T14:00:00"
+   },
+   "ticket_availability": {
+    "has_available_tickets": false,
+    "minimum_ticket_price": {
+     "currency": "USD",
+     "value": 0,
+     "major_value": "0.00",
+     "display": "0.00 USD"
+    },
+    "maximum_ticket_price": {
+     "currency": "USD",
+     "value": 0,
+     "major_value": "0.00",
+     "display": "0.00 USD"
+    },
+    "available_minimum_ticket_price": null,
+    "available_maximum_ticket_price": null,
+    "is_sold_out": true,
+    "start_sales_date": null,
+    "waitlist_available": false
+   }
+  },
+  {
+   "id": "2004632972183",
+   "url": "https://www.eventbrite.com/e/james-turrell-exhibition-at-almine-rech-new-york-tickets-2004632972183",
+   "status": "live",
+   "start": {
+    "timezone": "America/New_York",
+    "utc": "2027-01-19T19:00:00Z",
+    "local": "2027-01-19T14:00:00"
+   },
+   "end": {
+    "timezone": "America/New_York",
+    "utc": "2027-01-19T20:00:00Z",
+    "local": "2027-01-19T15:00:00"
+   },
+   "ticket_availability": {
+    "has_available_tickets": false,
+    "minimum_ticket_price": {
+     "currency": "USD",
+     "value": 0,
+     "major_value": "0.00",
+     "display": "0.00 USD"
+    },
+    "maximum_ticket_price": {
+     "currency": "USD",
+     "value": 0,
+     "major_value": "0.00",
+     "display": "0.00 USD"
+    },
+    "available_minimum_ticket_price": null,
+    "available_maximum_ticket_price": null,
+    "is_sold_out": true,
+    "start_sales_date": null,
+    "waitlist_available": false
+   }
+  },
+  {
+   "id": "2004632973186",
+   "url": "https://www.eventbrite.com/e/james-turrell-exhibition-at-almine-rech-new-york-tickets-2004632973186",
+   "status": "live",
+   "start": {
+    "timezone": "America/New_York",
+    "utc": "2027-01-19T20:00:00Z",
+    "local": "2027-01-19T15:00:00"
+   },
+   "end": {
+    "timezone": "America/New_York",
+    "utc": "2027-01-19T21:00:00Z",
+    "local": "2027-01-19T16:00:00"
+   },
+   "ticket_availability": {
+    "has_available_tickets": false,
+    "minimum_ticket_price": {
+     "currency": "USD",
+     "value": 0,
+     "major_value": "0.00",
+     "display": "0.00 USD"
+    },
+    "maximum_ticket_price": {
+     "currency": "USD",
+     "value": 0,
+     "major_value": "0.00",
+     "display": "0.00 USD"
+    },
+    "available_minimum_ticket_price": null,
+    "available_maximum_ticket_price": null,
+    "is_sold_out": true,
+    "start_sales_date": null,
+    "waitlist_available": false
+   }
+  },
+  {
+   "id": "2004632974189",
+   "url": "https://www.eventbrite.com/e/james-turrell-exhibition-at-almine-rech-new-york-tickets-2004632974189",
+   "status": "live",
+   "start": {
+    "timezone": "America/New_York",
+    "utc": "2027-01-19T21:00:00Z",
+    "local": "2027-01-19T16:00:00"
+   },
+   "end": {
+    "timezone": "America/New_York",
+    "utc": "2027-01-19T22:00:00Z",
+    "local": "2027-01-19T17:00:00"
+   },
+   "ticket_availability": {
+    "has_available_tickets": false,
+    "minimum_ticket_price": {
+     "currency": "USD",
+     "value": 0,
+     "major_value": "0.00",
+     "display": "0.00 USD"
+    },
+    "maximum_ticket_price": {
+     "currency": "USD",
+     "value": 0,
+     "major_value": "0.00",
+     "display": "0.00 USD"
+    },
+    "available_minimum_ticket_price": null,
+    "available_maximum_ticket_price": null,
+    "is_sold_out": true,
+    "start_sales_date": null,
+    "waitlist_available": false
+   }
+  },
+  {
+   "id": "2004632975192",
+   "url": "https://www.eventbrite.com/e/james-turrell-exhibition-at-almine-rech-new-york-tickets-2004632975192",
+   "status": "live",
+   "start": {
+    "timezone": "America/New_York",
+    "utc": "2027-01-19T22:00:00Z",
+    "local": "2027-01-19T17:00:00"
+   },
+   "end": {
+    "timezone": "America/New_York",
+    "utc": "2027-01-19T23:00:00Z",
+    "local": "2027-01-19T18:00:00"
+   },
+   "ticket_availability": {
+    "has_available_tickets": false,
+    "minimum_ticket_price": {
+     "currency": "USD",
+     "value": 0,
+     "major_value": "0.00",
+     "display": "0.00 USD"
+    },
+    "maximum_ticket_price": {
+     "currency": "USD",
+     "value": 0,
+     "major_value": "0.00",
+     "display": "0.00 USD"
+    },
+    "available_minimum_ticket_price": null,
+    "available_maximum_ticket_price": null,
+    "is_sold_out": true,
+    "start_sales_date": null,
+    "waitlist_available": false
+   }
+  },
+  {
+   "id": "2004632976195",
+   "url": "https://www.eventbrite.com/e/james-turrell-exhibition-at-almine-rech-new-york-tickets-2004632976195",
+   "status": "live",
+   "start": {
+    "timezone": "America/New_York",
+    "utc": "2027-01-20T16:00:00Z",
+    "local": "2027-01-20T11:00:00"
+   },
+   "end": {
+    "timezone": "America/New_York",
+    "utc": "2027-01-20T17:00:00Z",
+    "local": "2027-01-20T12:00:00"
+   },
+   "ticket_availability": {
+    "has_available_tickets": false,
+    "minimum_ticket_price": {
+     "currency": "USD",
+     "value": 0,
+     "major_value": "0.00",
+     "display": "0.00 USD"
+    },
+    "maximum_ticket_price": {
+     "currency": "USD",
+     "value": 0,
+     "major_value": "0.00",
+     "display": "0.00 USD"
+    },
+    "available_minimum_ticket_price": null,
+    "available_maximum_ticket_price": null,
+    "is_sold_out": true,
+    "start_sales_date": null,
+    "waitlist_available": false
+   }
+  },
+  {
+   "id": "2004632977198",
+   "url": "https://www.eventbrite.com/e/james-turrell-exhibition-at-almine-rech-new-york-tickets-2004632977198",
+   "status": "live",
+   "start": {
+    "timezone": "America/New_York",
+    "utc": "2027-01-20T17:00:00Z",
+    "local": "2027-01-20T12:00:00"
+   },
+   "end": {
+    "timezone": "America/New_York",
+    "utc": "2027-01-20T18:00:00Z",
+    "local": "2027-01-20T13:00:00"
+   },
+   "ticket_availability": {
+    "has_available_tickets": false,
+    "minimum_ticket_price": {
+     "currency": "USD",
+     "value": 0,
+     "major_value": "0.00",
+     "display": "0.00 USD"
+    },
+    "maximum_ticket_price": {
+     "currency": "USD",
+     "value": 0,
+     "major_value": "0.00",
+     "display": "0.00 USD"
+    },
+    "available_minimum_ticket_price": null,
+    "available_maximum_ticket_price": null,
+    "is_sold_out": true,
+    "start_sales_date": null,
+    "waitlist_available": false
+   }
+  },
+  {
+   "id": "2004632978201",
+   "url": "https://www.eventbrite.com/e/james-turrell-exhibition-at-almine-rech-new-york-tickets-2004632978201",
+   "status": "live",
+   "start": {
+    "timezone": "America/New_York",
+    "utc": "2027-01-20T18:00:00Z",
+    "local": "2027-01-20T13:00:00"
+   },
+   "end": {
+    "timezone": "America/New_York",
+    "utc": "2027-01-20T19:00:00Z",
+    "local": "2027-01-20T14:00:00"
+   },
+   "ticket_availability": {
+    "has_available_tickets": false,
+    "minimum_ticket_price": {
+     "currency": "USD",
+     "value": 0,
+     "major_value": "0.00",
+     "display": "0.00 USD"
+    },
+    "maximum_ticket_price": {
+     "currency": "USD",
+     "value": 0,
+     "major_value": "0.00",
+     "display": "0.00 USD"
+    },
+    "available_minimum_ticket_price": null,
+    "available_maximum_ticket_price": null,
+    "is_sold_out": true,
+    "start_sales_date": null,
+    "waitlist_available": false
+   }
+  },
+  {
+   "id": "2004632979204",
+   "url": "https://www.eventbrite.com/e/james-turrell-exhibition-at-almine-rech-new-york-tickets-2004632979204",
+   "status": "live",
+   "start": {
+    "timezone": "America/New_York",
+    "utc": "2027-01-20T19:00:00Z",
+    "local": "2027-01-20T14:00:00"
+   },
+   "end": {
+    "timezone": "America/New_York",
+    "utc": "2027-01-20T20:00:00Z",
+    "local": "2027-01-20T15:00:00"
+   },
+   "ticket_availability": {
+    "has_available_tickets": false,
+    "minimum_ticket_price": {
+     "currency": "USD",
+     "value": 0,
+     "major_value": "0.00",
+     "display": "0.00 USD"
+    },
+    "maximum_ticket_price": {
+     "currency": "USD",
+     "value": 0,
+     "major_value": "0.00",
+     "display": "0.00 USD"
+    },
+    "available_minimum_ticket_price": null,
+    "available_maximum_ticket_price": null,
+    "is_sold_out": true,
+    "start_sales_date": null,
+    "waitlist_available": false
+   }
+  },
+  {
+   "id": "2004632980207",
+   "url": "https://www.eventbrite.com/e/james-turrell-exhibition-at-almine-rech-new-york-tickets-2004632980207",
+   "status": "live",
+   "start": {
+    "timezone": "America/New_York",
+    "utc": "2027-01-20T20:00:00Z",
+    "local": "2027-01-20T15:00:00"
+   },
+   "end": {
+    "timezone": "America/New_York",
+    "utc": "2027-01-20T21:00:00Z",
+    "local": "2027-01-20T16:00:00"
+   },
+   "ticket_availability": {
+    "has_available_tickets": false,
+    "minimum_ticket_price": {
+     "currency": "USD",
+     "value": 0,
+     "major_value": "0.00",
+     "display": "0.00 USD"
+    },
+    "maximum_ticket_price": {
+     "currency": "USD",
+     "value": 0,
+     "major_value": "0.00",
+     "display": "0.00 USD"
+    },
+    "available_minimum_ticket_price": null,
+    "available_maximum_ticket_price": null,
+    "is_sold_out": true,
+    "start_sales_date": null,
+    "waitlist_available": false
+   }
+  },
+  {
+   "id": "2004632981210",
+   "url": "https://www.eventbrite.com/e/james-turrell-exhibition-at-almine-rech-new-york-tickets-2004632981210",
+   "status": "live",
+   "start": {
+    "timezone": "America/New_York",
+    "utc": "2027-01-20T21:00:00Z",
+    "local": "2027-01-20T16:00:00"
+   },
+   "end": {
+    "timezone": "America/New_York",
+    "utc": "2027-01-20T22:00:00Z",
+    "local": "2027-01-20T17:00:00"
+   },
+   "ticket_availability": {
+    "has_available_tickets": false,
+    "minimum_ticket_price": {
+     "currency": "USD",
+     "value": 0,
+     "major_value": "0.00",
+     "display": "0.00 USD"
+    },
+    "maximum_ticket_price": {
+     "currency": "USD",
+     "value": 0,
+     "major_value": "0.00",
+     "display": "0.00 USD"
+    },
+    "available_minimum_ticket_price": null,
+    "available_maximum_ticket_price": null,
+    "is_sold_out": true,
+    "start_sales_date": null,
+    "waitlist_available": false
+   }
+  },
+  {
+   "id": "2004632982213",
+   "url": "https://www.eventbrite.com/e/james-turrell-exhibition-at-almine-rech-new-york-tickets-2004632982213",
+   "status": "live",
+   "start": {
+    "timezone": "America/New_York",
+    "utc": "2027-01-20T22:00:00Z",
+    "local": "2027-01-20T17:00:00"
+   },
+   "end": {
+    "timezone": "America/New_York",
+    "utc": "2027-01-20T23:00:00Z",
+    "local": "2027-01-20T18:00:00"
+   },
+   "ticket_availability": {
+    "has_available_tickets": false,
+    "minimum_ticket_price": {
+     "currency": "USD",
+     "value": 0,
+     "major_value": "0.00",
+     "display": "0.00 USD"
+    },
+    "maximum_ticket_price": {
+     "currency": "USD",
+     "value": 0,
+     "major_value": "0.00",
+     "display": "0.00 USD"
+    },
+    "available_minimum_ticket_price": null,
+    "available_maximum_ticket_price": null,
+    "is_sold_out": true,
+    "start_sales_date": null,
+    "waitlist_available": false
+   }
+  },
+  {
+   "id": "2004632983216",
+   "url": "https://www.eventbrite.com/e/james-turrell-exhibition-at-almine-rech-new-york-tickets-2004632983216",
+   "status": "live",
+   "start": {
+    "timezone": "America/New_York",
+    "utc": "2027-01-21T16:00:00Z",
+    "local": "2027-01-21T11:00:00"
+   },
+   "end": {
+    "timezone": "America/New_York",
+    "utc": "2027-01-21T17:00:00Z",
+    "local": "2027-01-21T12:00:00"
+   },
+   "ticket_availability": {
+    "has_available_tickets": false,
+    "minimum_ticket_price": {
+     "currency": "USD",
+     "value": 0,
+     "major_value": "0.00",
+     "display": "0.00 USD"
+    },
+    "maximum_ticket_price": {
+     "currency": "USD",
+     "value": 0,
+     "major_value": "0.00",
+     "display": "0.00 USD"
+    },
+    "available_minimum_ticket_price": null,
+    "available_maximum_ticket_price": null,
+    "is_sold_out": true,
+    "start_sales_date": null,
+    "waitlist_available": false
+   }
+  },
+  {
+   "id": "2004632984219",
+   "url": "https://www.eventbrite.com/e/james-turrell-exhibition-at-almine-rech-new-york-tickets-2004632984219",
+   "status": "live",
+   "start": {
+    "timezone": "America/New_York",
+    "utc": "2027-01-21T17:00:00Z",
+    "local": "2027-01-21T12:00:00"
+   },
+   "end": {
+    "timezone": "America/New_York",
+    "utc": "2027-01-21T18:00:00Z",
+    "local": "2027-01-21T13:00:00"
+   },
+   "ticket_availability": {
+    "has_available_tickets": false,
+    "minimum_ticket_price": {
+     "currency": "USD",
+     "value": 0,
+     "major_value": "0.00",
+     "display": "0.00 USD"
+    },
+    "maximum_ticket_price": {
+     "currency": "USD",
+     "value": 0,
+     "major_value": "0.00",
+     "display": "0.00 USD"
+    },
+    "available_minimum_ticket_price": null,
+    "available_maximum_ticket_price": null,
+    "is_sold_out": true,
+    "start_sales_date": null,
+    "waitlist_available": false
+   }
+  },
+  {
+   "id": "2004632985222",
+   "url": "https://www.eventbrite.com/e/james-turrell-exhibition-at-almine-rech-new-york-tickets-2004632985222",
+   "status": "live",
+   "start": {
+    "timezone": "America/New_York",
+    "utc": "2027-01-21T18:00:00Z",
+    "local": "2027-01-21T13:00:00"
+   },
+   "end": {
+    "timezone": "America/New_York",
+    "utc": "2027-01-21T19:00:00Z",
+    "local": "2027-01-21T14:00:00"
+   },
+   "ticket_availability": {
+    "has_available_tickets": false,
+    "minimum_ticket_price": {
+     "currency": "USD",
+     "value": 0,
+     "major_value": "0.00",
+     "display": "0.00 USD"
+    },
+    "maximum_ticket_price": {
+     "currency": "USD",
+     "value": 0,
+     "major_value": "0.00",
+     "display": "0.00 USD"
+    },
+    "available_minimum_ticket_price": null,
+    "available_maximum_ticket_price": null,
+    "is_sold_out": true,
+    "start_sales_date": null,
+    "waitlist_available": false
+   }
+  },
+  {
+   "id": "2004632986225",
+   "url": "https://www.eventbrite.com/e/james-turrell-exhibition-at-almine-rech-new-york-tickets-2004632986225",
+   "status": "live",
+   "start": {
+    "timezone": "America/New_York",
+    "utc": "2027-01-21T19:00:00Z",
+    "local": "2027-01-21T14:00:00"
+   },
+   "end": {
+    "timezone": "America/New_York",
+    "utc": "2027-01-21T20:00:00Z",
+    "local": "2027-01-21T15:00:00"
+   },
+   "ticket_availability": {
+    "has_available_tickets": false,
+    "minimum_ticket_price": {
+     "currency": "USD",
+     "value": 0,
+     "major_value": "0.00",
+     "display": "0.00 USD"
+    },
+    "maximum_ticket_price": {
+     "currency": "USD",
+     "value": 0,
+     "major_value": "0.00",
+     "display": "0.00 USD"
+    },
+    "available_minimum_ticket_price": null,
+    "available_maximum_ticket_price": null,
+    "is_sold_out": true,
+    "start_sales_date": null,
+    "waitlist_available": false
+   }
+  },
+  {
+   "id": "2004632987228",
+   "url": "https://www.eventbrite.com/e/james-turrell-exhibition-at-almine-rech-new-york-tickets-2004632987228",
+   "status": "live",
+   "start": {
+    "timezone": "America/New_York",
+    "utc": "2027-01-21T20:00:00Z",
+    "local": "2027-01-21T15:00:00"
+   },
+   "end": {
+    "timezone": "America/New_York",
+    "utc": "2027-01-21T21:00:00Z",
+    "local": "2027-01-21T16:00:00"
+   },
+   "ticket_availability": {
+    "has_available_tickets": false,
+    "minimum_ticket_price": {
+     "currency": "USD",
+     "value": 0,
+     "major_value": "0.00",
+     "display": "0.00 USD"
+    },
+    "maximum_ticket_price": {
+     "currency": "USD",
+     "value": 0,
+     "major_value": "0.00",
+     "display": "0.00 USD"
+    },
+    "available_minimum_ticket_price": null,
+    "available_maximum_ticket_price": null,
+    "is_sold_out": true,
+    "start_sales_date": null,
+    "waitlist_available": false
+   }
+  },
+  {
+   "id": "2004632988231",
+   "url": "https://www.eventbrite.com/e/james-turrell-exhibition-at-almine-rech-new-york-tickets-2004632988231",
+   "status": "live",
+   "start": {
+    "timezone": "America/New_York",
+    "utc": "2027-01-21T21:00:00Z",
+    "local": "2027-01-21T16:00:00"
+   },
+   "end": {
+    "timezone": "America/New_York",
+    "utc": "2027-01-21T22:00:00Z",
+    "local": "2027-01-21T17:00:00"
+   },
+   "ticket_availability": {
+    "has_available_tickets": false,
+    "minimum_ticket_price": {
+     "currency": "USD",
+     "value": 0,
+     "major_value": "0.00",
+     "display": "0.00 USD"
+    },
+    "maximum_ticket_price": {
+     "currency": "USD",
+     "value": 0,
+     "major_value": "0.00",
+     "display": "0.00 USD"
+    },
+    "available_minimum_ticket_price": null,
+    "available_maximum_ticket_price": null,
+    "is_sold_out": true,
+    "start_sales_date": null,
+    "waitlist_available": false
+   }
+  },
+  {
+   "id": "2004632989234",
+   "url": "https://www.eventbrite.com/e/james-turrell-exhibition-at-almine-rech-new-york-tickets-2004632989234",
+   "status": "live",
+   "start": {
+    "timezone": "America/New_York",
+    "utc": "2027-01-21T22:00:00Z",
+    "local": "2027-01-21T17:00:00"
+   },
+   "end": {
+    "timezone": "America/New_York",
+    "utc": "2027-01-21T23:00:00Z",
+    "local": "2027-01-21T18:00:00"
+   },
+   "ticket_availability": {
+    "has_available_tickets": false,
+    "minimum_ticket_price": {
+     "currency": "USD",
+     "value": 0,
+     "major_value": "0.00",
+     "display": "0.00 USD"
+    },
+    "maximum_ticket_price": {
+     "currency": "USD",
+     "value": 0,
+     "major_value": "0.00",
+     "display": "0.00 USD"
+    },
+    "available_minimum_ticket_price": null,
+    "available_maximum_ticket_price": null,
+    "is_sold_out": true,
+    "start_sales_date": null,
+    "waitlist_available": false
+   }
+  },
+  {
+   "id": "2004632990237",
+   "url": "https://www.eventbrite.com/e/james-turrell-exhibition-at-almine-rech-new-york-tickets-2004632990237",
+   "status": "live",
+   "start": {
+    "timezone": "America/New_York",
+    "utc": "2027-01-22T16:00:00Z",
+    "local": "2027-01-22T11:00:00"
+   },
+   "end": {
+    "timezone": "America/New_York",
+    "utc": "2027-01-22T17:00:00Z",
+    "local": "2027-01-22T12:00:00"
+   },
+   "ticket_availability": {
+    "has_available_tickets": false,
+    "minimum_ticket_price": {
+     "currency": "USD",
+     "value": 0,
+     "major_value": "0.00",
+     "display": "0.00 USD"
+    },
+    "maximum_ticket_price": {
+     "currency": "USD",
+     "value": 0,
+     "major_value": "0.00",
+     "display": "0.00 USD"
+    },
+    "available_minimum_ticket_price": null,
+    "available_maximum_ticket_price": null,
+    "is_sold_out": true,
+    "start_sales_date": null,
+    "waitlist_available": false
+   }
+  },
+  {
+   "id": "2004632991240",
+   "url": "https://www.eventbrite.com/e/james-turrell-exhibition-at-almine-rech-new-york-tickets-2004632991240",
+   "status": "live",
+   "start": {
+    "timezone": "America/New_York",
+    "utc": "2027-01-22T17:00:00Z",
+    "local": "2027-01-22T12:00:00"
+   },
+   "end": {
+    "timezone": "America/New_York",
+    "utc": "2027-01-22T18:00:00Z",
+    "local": "2027-01-22T13:00:00"
+   },
+   "ticket_availability": {
+    "has_available_tickets": false,
+    "minimum_ticket_price": {
+     "currency": "USD",
+     "value": 0,
+     "major_value": "0.00",
+     "display": "0.00 USD"
+    },
+    "maximum_ticket_price": {
+     "currency": "USD",
+     "value": 0,
+     "major_value": "0.00",
+     "display": "0.00 USD"
+    },
+    "available_minimum_ticket_price": null,
+    "available_maximum_ticket_price": null,
+    "is_sold_out": true,
+    "start_sales_date": null,
+    "waitlist_available": false
+   }
+  },
+  {
+   "id": "2004632992243",
+   "url": "https://www.eventbrite.com/e/james-turrell-exhibition-at-almine-rech-new-york-tickets-2004632992243",
+   "status": "live",
+   "start": {
+    "timezone": "America/New_York",
+    "utc": "2027-01-22T18:00:00Z",
+    "local": "2027-01-22T13:00:00"
+   },
+   "end": {
+    "timezone": "America/New_York",
+    "utc": "2027-01-22T19:00:00Z",
+    "local": "2027-01-22T14:00:00"
+   },
+   "ticket_availability": {
+    "has_available_tickets": false,
+    "minimum_ticket_price": {
+     "currency": "USD",
+     "value": 0,
+     "major_value": "0.00",
+     "display": "0.00 USD"
+    },
+    "maximum_ticket_price": {
+     "currency": "USD",
+     "value": 0,
+     "major_value": "0.00",
+     "display": "0.00 USD"
+    },
+    "available_minimum_ticket_price": null,
+    "available_maximum_ticket_price": null,
+    "is_sold_out": true,
+    "start_sales_date": null,
+    "waitlist_available": false
+   }
+  },
+  {
+   "id": "2004632993246",
+   "url": "https://www.eventbrite.com/e/james-turrell-exhibition-at-almine-rech-new-york-tickets-2004632993246",
+   "status": "live",
+   "start": {
+    "timezone": "America/New_York",
+    "utc": "2027-01-22T19:00:00Z",
+    "local": "2027-01-22T14:00:00"
+   },
+   "end": {
+    "timezone": "America/New_York",
+    "utc": "2027-01-22T20:00:00Z",
+    "local": "2027-01-22T15:00:00"
+   },
+   "ticket_availability": {
+    "has_available_tickets": false,
+    "minimum_ticket_price": {
+     "currency": "USD",
+     "value": 0,
+     "major_value": "0.00",
+     "display": "0.00 USD"
+    },
+    "maximum_ticket_price": {
+     "currency": "USD",
+     "value": 0,
+     "major_value": "0.00",
+     "display": "0.00 USD"
+    },
+    "available_minimum_ticket_price": null,
+    "available_maximum_ticket_price": null,
+    "is_sold_out": true,
+    "start_sales_date": null,
+    "waitlist_available": false
+   }
+  },
+  {
+   "id": "2004632994249",
+   "url": "https://www.eventbrite.com/e/james-turrell-exhibition-at-almine-rech-new-york-tickets-2004632994249",
+   "status": "live",
+   "start": {
+    "timezone": "America/New_York",
+    "utc": "2027-01-22T20:00:00Z",
+    "local": "2027-01-22T15:00:00"
+   },
+   "end": {
+    "timezone": "America/New_York",
+    "utc": "2027-01-22T21:00:00Z",
+    "local": "2027-01-22T16:00:00"
+   },
+   "ticket_availability": {
+    "has_available_tickets": false,
+    "minimum_ticket_price": {
+     "currency": "USD",
+     "value": 0,
+     "major_value": "0.00",
+     "display": "0.00 USD"
+    },
+    "maximum_ticket_price": {
+     "currency": "USD",
+     "value": 0,
+     "major_value": "0.00",
+     "display": "0.00 USD"
+    },
+    "available_minimum_ticket_price": null,
+    "available_maximum_ticket_price": null,
+    "is_sold_out": true,
+    "start_sales_date": null,
+    "waitlist_available": false
+   }
+  },
+  {
+   "id": "2004632995252",
+   "url": "https://www.eventbrite.com/e/james-turrell-exhibition-at-almine-rech-new-york-tickets-2004632995252",
+   "status": "live",
+   "start": {
+    "timezone": "America/New_York",
+    "utc": "2027-01-22T21:00:00Z",
+    "local": "2027-01-22T16:00:00"
+   },
+   "end": {
+    "timezone": "America/New_York",
+    "utc": "2027-01-22T22:00:00Z",
+    "local": "2027-01-22T17:00:00"
+   },
+   "ticket_availability": {
+    "has_available_tickets": false,
+    "minimum_ticket_price": {
+     "currency": "USD",
+     "value": 0,
+     "major_value": "0.00",
+     "display": "0.00 USD"
+    },
+    "maximum_ticket_price": {
+     "currency": "USD",
+     "value": 0,
+     "major_value": "0.00",
+     "display": "0.00 USD"
+    },
+    "available_minimum_ticket_price": null,
+    "available_maximum_ticket_price": null,
+    "is_sold_out": true,
+    "start_sales_date": null,
+    "waitlist_available": false
+   }
+  },
+  {
+   "id": "2004632996255",
+   "url": "https://www.eventbrite.com/e/james-turrell-exhibition-at-almine-rech-new-york-tickets-2004632996255",
+   "status": "live",
+   "start": {
+    "timezone": "America/New_York",
+    "utc": "2027-01-22T22:00:00Z",
+    "local": "2027-01-22T17:00:00"
+   },
+   "end": {
+    "timezone": "America/New_York",
+    "utc": "2027-01-22T23:00:00Z",
+    "local": "2027-01-22T18:00:00"
+   },
+   "ticket_availability": {
+    "has_available_tickets": false,
+    "minimum_ticket_price": {
+     "currency": "USD",
+     "value": 0,
+     "major_value": "0.00",
+     "display": "0.00 USD"
+    },
+    "maximum_ticket_price": {
+     "currency": "USD",
+     "value": 0,
+     "major_value": "0.00",
+     "display": "0.00 USD"
+    },
+    "available_minimum_ticket_price": null,
+    "available_maximum_ticket_price": null,
+    "is_sold_out": true,
+    "start_sales_date": null,
+    "waitlist_available": false
+   }
+  },
+  {
+   "id": "2004632997258",
+   "url": "https://www.eventbrite.com/e/james-turrell-exhibition-at-almine-rech-new-york-tickets-2004632997258",
+   "status": "live",
+   "start": {
+    "timezone": "America/New_York",
+    "utc": "2027-01-23T16:00:00Z",
+    "local": "2027-01-23T11:00:00"
+   },
+   "end": {
+    "timezone": "America/New_York",
+    "utc": "2027-01-23T17:00:00Z",
+    "local": "2027-01-23T12:00:00"
+   },
+   "ticket_availability": {
+    "has_available_tickets": false,
+    "minimum_ticket_price": {
+     "currency": "USD",
+     "value": 0,
+     "major_value": "0.00",
+     "display": "0.00 USD"
+    },
+    "maximum_ticket_price": {
+     "currency": "USD",
+     "value": 0,
+     "major_value": "0.00",
+     "display": "0.00 USD"
+    },
+    "available_minimum_ticket_price": null,
+    "available_maximum_ticket_price": null,
+    "is_sold_out": true,
+    "start_sales_date": null,
+    "waitlist_available": false
+   }
+  },
+  {
+   "id": "2004632998261",
+   "url": "https://www.eventbrite.com/e/james-turrell-exhibition-at-almine-rech-new-york-tickets-2004632998261",
+   "status": "live",
+   "start": {
+    "timezone": "America/New_York",
+    "utc": "2027-01-23T17:00:00Z",
+    "local": "2027-01-23T12:00:00"
+   },
+   "end": {
+    "timezone": "America/New_York",
+    "utc": "2027-01-23T18:00:00Z",
+    "local": "2027-01-23T13:00:00"
+   },
+   "ticket_availability": {
+    "has_available_tickets": false,
+    "minimum_ticket_price": {
+     "currency": "USD",
+     "value": 0,
+     "major_value": "0.00",
+     "display": "0.00 USD"
+    },
+    "maximum_ticket_price": {
+     "currency": "USD",
+     "value": 0,
+     "major_value": "0.00",
+     "display": "0.00 USD"
+    },
+    "available_minimum_ticket_price": null,
+    "available_maximum_ticket_price": null,
+    "is_sold_out": true,
+    "start_sales_date": null,
+    "waitlist_available": false
+   }
+  },
+  {
+   "id": "2004632999264",
+   "url": "https://www.eventbrite.com/e/james-turrell-exhibition-at-almine-rech-new-york-tickets-2004632999264",
+   "status": "live",
+   "start": {
+    "timezone": "America/New_York",
+    "utc": "2027-01-23T18:00:00Z",
+    "local": "2027-01-23T13:00:00"
+   },
+   "end": {
+    "timezone": "America/New_York",
+    "utc": "2027-01-23T19:00:00Z",
+    "local": "2027-01-23T14:00:00"
+   },
+   "ticket_availability": {
+    "has_available_tickets": false,
+    "minimum_ticket_price": {
+     "currency": "USD",
+     "value": 0,
+     "major_value": "0.00",
+     "display": "0.00 USD"
+    },
+    "maximum_ticket_price": {
+     "currency": "USD",
+     "value": 0,
+     "major_value": "0.00",
+     "display": "0.00 USD"
+    },
+    "available_minimum_ticket_price": null,
+    "available_maximum_ticket_price": null,
+    "is_sold_out": true,
+    "start_sales_date": null,
+    "waitlist_available": false
+   }
+  },
+  {
+   "id": "2004633000267",
+   "url": "https://www.eventbrite.com/e/james-turrell-exhibition-at-almine-rech-new-york-tickets-2004633000267",
+   "status": "live",
+   "start": {
+    "timezone": "America/New_York",
+    "utc": "2027-01-23T19:00:00Z",
+    "local": "2027-01-23T14:00:00"
+   },
+   "end": {
+    "timezone": "America/New_York",
+    "utc": "2027-01-23T20:00:00Z",
+    "local": "2027-01-23T15:00:00"
+   },
+   "ticket_availability": {
+    "has_available_tickets": false,
+    "minimum_ticket_price": {
+     "currency": "USD",
+     "value": 0,
+     "major_value": "0.00",
+     "display": "0.00 USD"
+    },
+    "maximum_ticket_price": {
+     "currency": "USD",
+     "value": 0,
+     "major_value": "0.00",
+     "display": "0.00 USD"
+    },
+    "available_minimum_ticket_price": null,
+    "available_maximum_ticket_price": null,
+    "is_sold_out": true,
+    "start_sales_date": null,
+    "waitlist_available": false
+   }
+  },
+  {
+   "id": "2004633001270",
+   "url": "https://www.eventbrite.com/e/james-turrell-exhibition-at-almine-rech-new-york-tickets-2004633001270",
+   "status": "live",
+   "start": {
+    "timezone": "America/New_York",
+    "utc": "2027-01-23T20:00:00Z",
+    "local": "2027-01-23T15:00:00"
+   },
+   "end": {
+    "timezone": "America/New_York",
+    "utc": "2027-01-23T21:00:00Z",
+    "local": "2027-01-23T16:00:00"
+   },
+   "ticket_availability": {
+    "has_available_tickets": false,
+    "minimum_ticket_price": {
+     "currency": "USD",
+     "value": 0,
+     "major_value": "0.00",
+     "display": "0.00 USD"
+    },
+    "maximum_ticket_price": {
+     "currency": "USD",
+     "value": 0,
+     "major_value": "0.00",
+     "display": "0.00 USD"
+    },
+    "available_minimum_ticket_price": null,
+    "available_maximum_ticket_price": null,
+    "is_sold_out": true,
+    "start_sales_date": null,
+    "waitlist_available": false
+   }
+  },
+  {
+   "id": "2004633002273",
+   "url": "https://www.eventbrite.com/e/james-turrell-exhibition-at-almine-rech-new-york-tickets-2004633002273",
+   "status": "live",
+   "start": {
+    "timezone": "America/New_York",
+    "utc": "2027-01-23T21:00:00Z",
+    "local": "2027-01-23T16:00:00"
+   },
+   "end": {
+    "timezone": "America/New_York",
+    "utc": "2027-01-23T22:00:00Z",
+    "local": "2027-01-23T17:00:00"
+   },
+   "ticket_availability": {
+    "has_available_tickets": false,
+    "minimum_ticket_price": {
+     "currency": "USD",
+     "value": 0,
+     "major_value": "0.00",
+     "display": "0.00 USD"
+    },
+    "maximum_ticket_price": {
+     "currency": "USD",
+     "value": 0,
+     "major_value": "0.00",
+     "display": "0.00 USD"
+    },
+    "available_minimum_ticket_price": null,
+    "available_maximum_ticket_price": null,
+    "is_sold_out": true,
+    "start_sales_date": null,
+    "waitlist_available": false
+   }
+  },
+  {
+   "id": "2004633003276",
+   "url": "https://www.eventbrite.com/e/james-turrell-exhibition-at-almine-rech-new-york-tickets-2004633003276",
+   "status": "live",
+   "start": {
+    "timezone": "America/New_York",
+    "utc": "2027-01-23T22:00:00Z",
+    "local": "2027-01-23T17:00:00"
+   },
+   "end": {
+    "timezone": "America/New_York",
+    "utc": "2027-01-23T23:00:00Z",
+    "local": "2027-01-23T18:00:00"
+   },
+   "ticket_availability": {
+    "has_available_tickets": false,
+    "minimum_ticket_price": {
+     "currency": "USD",
+     "value": 0,
+     "major_value": "0.00",
+     "display": "0.00 USD"
+    },
+    "maximum_ticket_price": {
+     "currency": "USD",
+     "value": 0,
+     "major_value": "0.00",
+     "display": "0.00 USD"
+    },
+    "available_minimum_ticket_price": null,
+    "available_maximum_ticket_price": null,
+    "is_sold_out": true,
+    "start_sales_date": null,
+    "waitlist_available": false
+   }
+  },
+  {
+   "id": "2004633004279",
+   "url": "https://www.eventbrite.com/e/james-turrell-exhibition-at-almine-rech-new-york-tickets-2004633004279",
+   "status": "live",
+   "start": {
+    "timezone": "America/New_York",
+    "utc": "2027-01-26T16:00:00Z",
+    "local": "2027-01-26T11:00:00"
+   },
+   "end": {
+    "timezone": "America/New_York",
+    "utc": "2027-01-26T17:00:00Z",
+    "local": "2027-01-26T12:00:00"
+   },
+   "ticket_availability": {
+    "has_available_tickets": false,
+    "minimum_ticket_price": {
+     "currency": "USD",
+     "value": 0,
+     "major_value": "0.00",
+     "display": "0.00 USD"
+    },
+    "maximum_ticket_price": {
+     "currency": "USD",
+     "value": 0,
+     "major_value": "0.00",
+     "display": "0.00 USD"
+    },
+    "available_minimum_ticket_price": null,
+    "available_maximum_ticket_price": null,
+    "is_sold_out": true,
+    "start_sales_date": null,
+    "waitlist_available": false
+   }
+  },
+  {
+   "id": "2004633005282",
+   "url": "https://www.eventbrite.com/e/james-turrell-exhibition-at-almine-rech-new-york-tickets-2004633005282",
+   "status": "live",
+   "start": {
+    "timezone": "America/New_York",
+    "utc": "2027-01-26T17:00:00Z",
+    "local": "2027-01-26T12:00:00"
+   },
+   "end": {
+    "timezone": "America/New_York",
+    "utc": "2027-01-26T18:00:00Z",
+    "local": "2027-01-26T13:00:00"
+   },
+   "ticket_availability": {
+    "has_available_tickets": false,
+    "minimum_ticket_price": {
+     "currency": "USD",
+     "value": 0,
+     "major_value": "0.00",
+     "display": "0.00 USD"
+    },
+    "maximum_ticket_price": {
+     "currency": "USD",
+     "value": 0,
+     "major_value": "0.00",
+     "display": "0.00 USD"
+    },
+    "available_minimum_ticket_price": null,
+    "available_maximum_ticket_price": null,
+    "is_sold_out": true,
+    "start_sales_date": null,
+    "waitlist_available": false
+   }
+  },
+  {
+   "id": "2004633006285",
+   "url": "https://www.eventbrite.com/e/james-turrell-exhibition-at-almine-rech-new-york-tickets-2004633006285",
+   "status": "live",
+   "start": {
+    "timezone": "America/New_York",
+    "utc": "2027-01-26T18:00:00Z",
+    "local": "2027-01-26T13:00:00"
+   },
+   "end": {
+    "timezone": "America/New_York",
+    "utc": "2027-01-26T19:00:00Z",
+    "local": "2027-01-26T14:00:00"
+   },
+   "ticket_availability": {
+    "has_available_tickets": false,
+    "minimum_ticket_price": {
+     "currency": "USD",
+     "value": 0,
+     "major_value": "0.00",
+     "display": "0.00 USD"
+    },
+    "maximum_ticket_price": {
+     "currency": "USD",
+     "value": 0,
+     "major_value": "0.00",
+     "display": "0.00 USD"
+    },
+    "available_minimum_ticket_price": null,
+    "available_maximum_ticket_price": null,
+    "is_sold_out": true,
+    "start_sales_date": null,
+    "waitlist_available": false
+   }
+  },
+  {
+   "id": "2004633007288",
+   "url": "https://www.eventbrite.com/e/james-turrell-exhibition-at-almine-rech-new-york-tickets-2004633007288",
+   "status": "live",
+   "start": {
+    "timezone": "America/New_York",
+    "utc": "2027-01-26T19:00:00Z",
+    "local": "2027-01-26T14:00:00"
+   },
+   "end": {
+    "timezone": "America/New_York",
+    "utc": "2027-01-26T20:00:00Z",
+    "local": "2027-01-26T15:00:00"
+   },
+   "ticket_availability": {
+    "has_available_tickets": false,
+    "minimum_ticket_price": {
+     "currency": "USD",
+     "value": 0,
+     "major_value": "0.00",
+     "display": "0.00 USD"
+    },
+    "maximum_ticket_price": {
+     "currency": "USD",
+     "value": 0,
+     "major_value": "0.00",
+     "display": "0.00 USD"
+    },
+    "available_minimum_ticket_price": null,
+    "available_maximum_ticket_price": null,
+    "is_sold_out": true,
+    "start_sales_date": null,
+    "waitlist_available": false
+   }
+  },
+  {
+   "id": "2004633008291",
+   "url": "https://www.eventbrite.com/e/james-turrell-exhibition-at-almine-rech-new-york-tickets-2004633008291",
+   "status": "live",
+   "start": {
+    "timezone": "America/New_York",
+    "utc": "2027-01-26T20:00:00Z",
+    "local": "2027-01-26T15:00:00"
+   },
+   "end": {
+    "timezone": "America/New_York",
+    "utc": "2027-01-26T21:00:00Z",
+    "local": "2027-01-26T16:00:00"
+   },
+   "ticket_availability": {
+    "has_available_tickets": false,
+    "minimum_ticket_price": {
+     "currency": "USD",
+     "value": 0,
+     "major_value": "0.00",
+     "display": "0.00 USD"
+    },
+    "maximum_ticket_price": {
+     "currency": "USD",
+     "value": 0,
+     "major_value": "0.00",
+     "display": "0.00 USD"
+    },
+    "available_minimum_ticket_price": null,
+    "available_maximum_ticket_price": null,
+    "is_sold_out": true,
+    "start_sales_date": null,
+    "waitlist_available": false
+   }
+  },
+  {
+   "id": "2004633009294",
+   "url": "https://www.eventbrite.com/e/james-turrell-exhibition-at-almine-rech-new-york-tickets-2004633009294",
+   "status": "live",
+   "start": {
+    "timezone": "America/New_York",
+    "utc": "2027-01-26T21:00:00Z",
+    "local": "2027-01-26T16:00:00"
+   },
+   "end": {
+    "timezone": "America/New_York",
+    "utc": "2027-01-26T22:00:00Z",
+    "local": "2027-01-26T17:00:00"
+   },
+   "ticket_availability": {
+    "has_available_tickets": false,
+    "minimum_ticket_price": {
+     "currency": "USD",
+     "value": 0,
+     "major_value": "0.00",
+     "display": "0.00 USD"
+    },
+    "maximum_ticket_price": {
+     "currency": "USD",
+     "value": 0,
+     "major_value": "0.00",
+     "display": "0.00 USD"
+    },
+    "available_minimum_ticket_price": null,
+    "available_maximum_ticket_price": null,
+    "is_sold_out": true,
+    "start_sales_date": null,
+    "waitlist_available": false
+   }
+  },
+  {
+   "id": "2004633010297",
+   "url": "https://www.eventbrite.com/e/james-turrell-exhibition-at-almine-rech-new-york-tickets-2004633010297",
+   "status": "live",
+   "start": {
+    "timezone": "America/New_York",
+    "utc": "2027-01-26T22:00:00Z",
+    "local": "2027-01-26T17:00:00"
+   },
+   "end": {
+    "timezone": "America/New_York",
+    "utc": "2027-01-26T23:00:00Z",
+    "local": "2027-01-26T18:00:00"
+   },
+   "ticket_availability": {
+    "has_available_tickets": false,
+    "minimum_ticket_price": {
+     "currency": "USD",
+     "value": 0,
+     "major_value": "0.00",
+     "display": "0.00 USD"
+    },
+    "maximum_ticket_price": {
+     "currency": "USD",
+     "value": 0,
+     "major_value": "0.00",
+     "display": "0.00 USD"
+    },
+    "available_minimum_ticket_price": null,
+    "available_maximum_ticket_price": null,
+    "is_sold_out": true,
+    "start_sales_date": null,
+    "waitlist_available": false
+   }
+  },
+  {
+   "id": "2004633011300",
+   "url": "https://www.eventbrite.com/e/james-turrell-exhibition-at-almine-rech-new-york-tickets-2004633011300",
+   "status": "live",
+   "start": {
+    "timezone": "America/New_York",
+    "utc": "2027-01-27T16:00:00Z",
+    "local": "2027-01-27T11:00:00"
+   },
+   "end": {
+    "timezone": "America/New_York",
+    "utc": "2027-01-27T17:00:00Z",
+    "local": "2027-01-27T12:00:00"
+   },
+   "ticket_availability": {
+    "has_available_tickets": false,
+    "minimum_ticket_price": {
+     "currency": "USD",
+     "value": 0,
+     "major_value": "0.00",
+     "display": "0.00 USD"
+    },
+    "maximum_ticket_price": {
+     "currency": "USD",
+     "value": 0,
+     "major_value": "0.00",
+     "display": "0.00 USD"
+    },
+    "available_minimum_ticket_price": null,
+    "available_maximum_ticket_price": null,
+    "is_sold_out": true,
+    "start_sales_date": null,
+    "waitlist_available": false
+   }
+  },
+  {
+   "id": "2004633012303",
+   "url": "https://www.eventbrite.com/e/james-turrell-exhibition-at-almine-rech-new-york-tickets-2004633012303",
+   "status": "live",
+   "start": {
+    "timezone": "America/New_York",
+    "utc": "2027-01-27T17:00:00Z",
+    "local": "2027-01-27T12:00:00"
+   },
+   "end": {
+    "timezone": "America/New_York",
+    "utc": "2027-01-27T18:00:00Z",
+    "local": "2027-01-27T13:00:00"
+   },
+   "ticket_availability": {
+    "has_available_tickets": false,
+    "minimum_ticket_price": {
+     "currency": "USD",
+     "value": 0,
+     "major_value": "0.00",
+     "display": "0.00 USD"
+    },
+    "maximum_ticket_price": {
+     "currency": "USD",
+     "value": 0,
+     "major_value": "0.00",
+     "display": "0.00 USD"
+    },
+    "available_minimum_ticket_price": null,
+    "available_maximum_ticket_price": null,
+    "is_sold_out": true,
+    "start_sales_date": null,
+    "waitlist_available": false
+   }
+  },
+  {
+   "id": "2004633013306",
+   "url": "https://www.eventbrite.com/e/james-turrell-exhibition-at-almine-rech-new-york-tickets-2004633013306",
+   "status": "live",
+   "start": {
+    "timezone": "America/New_York",
+    "utc": "2027-01-27T18:00:00Z",
+    "local": "2027-01-27T13:00:00"
+   },
+   "end": {
+    "timezone": "America/New_York",
+    "utc": "2027-01-27T19:00:00Z",
+    "local": "2027-01-27T14:00:00"
+   },
+   "ticket_availability": {
+    "has_available_tickets": false,
+    "minimum_ticket_price": {
+     "currency": "USD",
+     "value": 0,
+     "major_value": "0.00",
+     "display": "0.00 USD"
+    },
+    "maximum_ticket_price": {
+     "currency": "USD",
+     "value": 0,
+     "major_value": "0.00",
+     "display": "0.00 USD"
+    },
+    "available_minimum_ticket_price": null,
+    "available_maximum_ticket_price": null,
+    "is_sold_out": true,
+    "start_sales_date": null,
+    "waitlist_available": false
+   }
+  },
+  {
+   "id": "2004633014309",
+   "url": "https://www.eventbrite.com/e/james-turrell-exhibition-at-almine-rech-new-york-tickets-2004633014309",
+   "status": "live",
+   "start": {
+    "timezone": "America/New_York",
+    "utc": "2027-01-27T19:00:00Z",
+    "local": "2027-01-27T14:00:00"
+   },
+   "end": {
+    "timezone": "America/New_York",
+    "utc": "2027-01-27T20:00:00Z",
+    "local": "2027-01-27T15:00:00"
+   },
+   "ticket_availability": {
+    "has_available_tickets": false,
+    "minimum_ticket_price": {
+     "currency": "USD",
+     "value": 0,
+     "major_value": "0.00",
+     "display": "0.00 USD"
+    },
+    "maximum_ticket_price": {
+     "currency": "USD",
+     "value": 0,
+     "major_value": "0.00",
+     "display": "0.00 USD"
+    },
+    "available_minimum_ticket_price": null,
+    "available_maximum_ticket_price": null,
+    "is_sold_out": true,
+    "start_sales_date": null,
+    "waitlist_available": false
+   }
+  },
+  {
+   "id": "2004633015312",
+   "url": "https://www.eventbrite.com/e/james-turrell-exhibition-at-almine-rech-new-york-tickets-2004633015312",
+   "status": "live",
+   "start": {
+    "timezone": "America/New_York",
+    "utc": "2027-01-27T20:00:00Z",
+    "local": "2027-01-27T15:00:00"
+   },
+   "end": {
+    "timezone": "America/New_York",
+    "utc": "2027-01-27T21:00:00Z",
+    "local": "2027-01-27T16:00:00"
+   },
+   "ticket_availability": {
+    "has_available_tickets": false,
+    "minimum_ticket_price": {
+     "currency": "USD",
+     "value": 0,
+     "major_value": "0.00",
+     "display": "0.00 USD"
+    },
+    "maximum_ticket_price": {
+     "currency": "USD",
+     "value": 0,
+     "major_value": "0.00",
+     "display": "0.00 USD"
+    },
+    "available_minimum_ticket_price": null,
+    "available_maximum_ticket_price": null,
+    "is_sold_out": true,
+    "start_sales_date": null,
+    "waitlist_available": false
+   }
+  },
+  {
+   "id": "2004633016315",
+   "url": "https://www.eventbrite.com/e/james-turrell-exhibition-at-almine-rech-new-york-tickets-2004633016315",
+   "status": "live",
+   "start": {
+    "timezone": "America/New_York",
+    "utc": "2027-01-27T21:00:00Z",
+    "local": "2027-01-27T16:00:00"
+   },
+   "end": {
+    "timezone": "America/New_York",
+    "utc": "2027-01-27T22:00:00Z",
+    "local": "2027-01-27T17:00:00"
+   },
+   "ticket_availability": {
+    "has_available_tickets": false,
+    "minimum_ticket_price": {
+     "currency": "USD",
+     "value": 0,
+     "major_value": "0.00",
+     "display": "0.00 USD"
+    },
+    "maximum_ticket_price": {
+     "currency": "USD",
+     "value": 0,
+     "major_value": "0.00",
+     "display": "0.00 USD"
+    },
+    "available_minimum_ticket_price": null,
+    "available_maximum_ticket_price": null,
+    "is_sold_out": true,
+    "start_sales_date": null,
+    "waitlist_available": false
+   }
+  },
+  {
+   "id": "2004633017318",
+   "url": "https://www.eventbrite.com/e/james-turrell-exhibition-at-almine-rech-new-york-tickets-2004633017318",
+   "status": "live",
+   "start": {
+    "timezone": "America/New_York",
+    "utc": "2027-01-27T22:00:00Z",
+    "local": "2027-01-27T17:00:00"
+   },
+   "end": {
+    "timezone": "America/New_York",
+    "utc": "2027-01-27T23:00:00Z",
+    "local": "2027-01-27T18:00:00"
+   },
+   "ticket_availability": {
+    "has_available_tickets": false,
+    "minimum_ticket_price": {
+     "currency": "USD",
+     "value": 0,
+     "major_value": "0.00",
+     "display": "0.00 USD"
+    },
+    "maximum_ticket_price": {
+     "currency": "USD",
+     "value": 0,
+     "major_value": "0.00",
+     "display": "0.00 USD"
+    },
+    "available_minimum_ticket_price": null,
+    "available_maximum_ticket_price": null,
+    "is_sold_out": true,
+    "start_sales_date": null,
+    "waitlist_available": false
+   }
+  },
+  {
+   "id": "2004633018321",
+   "url": "https://www.eventbrite.com/e/james-turrell-exhibition-at-almine-rech-new-york-tickets-2004633018321",
+   "status": "live",
+   "start": {
+    "timezone": "America/New_York",
+    "utc": "2027-01-28T16:00:00Z",
+    "local": "2027-01-28T11:00:00"
+   },
+   "end": {
+    "timezone": "America/New_York",
+    "utc": "2027-01-28T17:00:00Z",
+    "local": "2027-01-28T12:00:00"
+   },
+   "ticket_availability": {
+    "has_available_tickets": false,
+    "minimum_ticket_price": {
+     "currency": "USD",
+     "value": 0,
+     "major_value": "0.00",
+     "display": "0.00 USD"
+    },
+    "maximum_ticket_price": {
+     "currency": "USD",
+     "value": 0,
+     "major_value": "0.00",
+     "display": "0.00 USD"
+    },
+    "available_minimum_ticket_price": null,
+    "available_maximum_ticket_price": null,
+    "is_sold_out": true,
+    "start_sales_date": null,
+    "waitlist_available": false
+   }
+  },
+  {
+   "id": "2004633019324",
+   "url": "https://www.eventbrite.com/e/james-turrell-exhibition-at-almine-rech-new-york-tickets-2004633019324",
+   "status": "live",
+   "start": {
+    "timezone": "America/New_York",
+    "utc": "2027-01-28T17:00:00Z",
+    "local": "2027-01-28T12:00:00"
+   },
+   "end": {
+    "timezone": "America/New_York",
+    "utc": "2027-01-28T18:00:00Z",
+    "local": "2027-01-28T13:00:00"
+   },
+   "ticket_availability": {
+    "has_available_tickets": false,
+    "minimum_ticket_price": {
+     "currency": "USD",
+     "value": 0,
+     "major_value": "0.00",
+     "display": "0.00 USD"
+    },
+    "maximum_ticket_price": {
+     "currency": "USD",
+     "value": 0,
+     "major_value": "0.00",
+     "display": "0.00 USD"
+    },
+    "available_minimum_ticket_price": null,
+    "available_maximum_ticket_price": null,
+    "is_sold_out": true,
+    "start_sales_date": null,
+    "waitlist_available": false
+   }
+  },
+  {
+   "id": "2004633020327",
+   "url": "https://www.eventbrite.com/e/james-turrell-exhibition-at-almine-rech-new-york-tickets-2004633020327",
+   "status": "live",
+   "start": {
+    "timezone": "America/New_York",
+    "utc": "2027-01-28T18:00:00Z",
+    "local": "2027-01-28T13:00:00"
+   },
+   "end": {
+    "timezone": "America/New_York",
+    "utc": "2027-01-28T19:00:00Z",
+    "local": "2027-01-28T14:00:00"
+   },
+   "ticket_availability": {
+    "has_available_tickets": false,
+    "minimum_ticket_price": {
+     "currency": "USD",
+     "value": 0,
+     "major_value": "0.00",
+     "display": "0.00 USD"
+    },
+    "maximum_ticket_price": {
+     "currency": "USD",
+     "value": 0,
+     "major_value": "0.00",
+     "display": "0.00 USD"
+    },
+    "available_minimum_ticket_price": null,
+    "available_maximum_ticket_price": null,
+    "is_sold_out": true,
+    "start_sales_date": null,
+    "waitlist_available": false
+   }
+  },
+  {
+   "id": "2004633021330",
+   "url": "https://www.eventbrite.com/e/james-turrell-exhibition-at-almine-rech-new-york-tickets-2004633021330",
+   "status": "live",
+   "start": {
+    "timezone": "America/New_York",
+    "utc": "2027-01-28T19:00:00Z",
+    "local": "2027-01-28T14:00:00"
+   },
+   "end": {
+    "timezone": "America/New_York",
+    "utc": "2027-01-28T20:00:00Z",
+    "local": "2027-01-28T15:00:00"
+   },
+   "ticket_availability": {
+    "has_available_tickets": false,
+    "minimum_ticket_price": {
+     "currency": "USD",
+     "value": 0,
+     "major_value": "0.00",
+     "display": "0.00 USD"
+    },
+    "maximum_ticket_price": {
+     "currency": "USD",
+     "value": 0,
+     "major_value": "0.00",
+     "display": "0.00 USD"
+    },
+    "available_minimum_ticket_price": null,
+    "available_maximum_ticket_price": null,
+    "is_sold_out": true,
+    "start_sales_date": null,
+    "waitlist_available": false
+   }
+  },
+  {
+   "id": "2004633022333",
+   "url": "https://www.eventbrite.com/e/james-turrell-exhibition-at-almine-rech-new-york-tickets-2004633022333",
+   "status": "live",
+   "start": {
+    "timezone": "America/New_York",
+    "utc": "2027-01-28T20:00:00Z",
+    "local": "2027-01-28T15:00:00"
+   },
+   "end": {
+    "timezone": "America/New_York",
+    "utc": "2027-01-28T21:00:00Z",
+    "local": "2027-01-28T16:00:00"
+   },
+   "ticket_availability": {
+    "has_available_tickets": false,
+    "minimum_ticket_price": {
+     "currency": "USD",
+     "value": 0,
+     "major_value": "0.00",
+     "display": "0.00 USD"
+    },
+    "maximum_ticket_price": {
+     "currency": "USD",
+     "value": 0,
+     "major_value": "0.00",
+     "display": "0.00 USD"
+    },
+    "available_minimum_ticket_price": null,
+    "available_maximum_ticket_price": null,
+    "is_sold_out": true,
+    "start_sales_date": null,
+    "waitlist_available": false
+   }
+  },
+  {
+   "id": "2004633023336",
+   "url": "https://www.eventbrite.com/e/james-turrell-exhibition-at-almine-rech-new-york-tickets-2004633023336",
+   "status": "live",
+   "start": {
+    "timezone": "America/New_York",
+    "utc": "2027-01-28T21:00:00Z",
+    "local": "2027-01-28T16:00:00"
+   },
+   "end": {
+    "timezone": "America/New_York",
+    "utc": "2027-01-28T22:00:00Z",
+    "local": "2027-01-28T17:00:00"
+   },
+   "ticket_availability": {
+    "has_available_tickets": false,
+    "minimum_ticket_price": {
+     "currency": "USD",
+     "value": 0,
+     "major_value": "0.00",
+     "display": "0.00 USD"
+    },
+    "maximum_ticket_price": {
+     "currency": "USD",
+     "value": 0,
+     "major_value": "0.00",
+     "display": "0.00 USD"
+    },
+    "available_minimum_ticket_price": null,
+    "available_maximum_ticket_price": null,
+    "is_sold_out": true,
+    "start_sales_date": null,
+    "waitlist_available": false
+   }
+  },
+  {
+   "id": "2004633024339",
+   "url": "https://www.eventbrite.com/e/james-turrell-exhibition-at-almine-rech-new-york-tickets-2004633024339",
+   "status": "live",
+   "start": {
+    "timezone": "America/New_York",
+    "utc": "2027-01-28T22:00:00Z",
+    "local": "2027-01-28T17:00:00"
+   },
+   "end": {
+    "timezone": "America/New_York",
+    "utc": "2027-01-28T23:00:00Z",
+    "local": "2027-01-28T18:00:00"
+   },
+   "ticket_availability": {
+    "has_available_tickets": false,
+    "minimum_ticket_price": {
+     "currency": "USD",
+     "value": 0,
+     "major_value": "0.00",
+     "display": "0.00 USD"
+    },
+    "maximum_ticket_price": {
+     "currency": "USD",
+     "value": 0,
+     "major_value": "0.00",
+     "display": "0.00 USD"
+    },
+    "available_minimum_ticket_price": null,
+    "available_maximum_ticket_price": null,
+    "is_sold_out": true,
+    "start_sales_date": null,
+    "waitlist_available": false
+   }
+  },
+  {
+   "id": "2004633025342",
+   "url": "https://www.eventbrite.com/e/james-turrell-exhibition-at-almine-rech-new-york-tickets-2004633025342",
+   "status": "live",
+   "start": {
+    "timezone": "America/New_York",
+    "utc": "2027-01-29T16:00:00Z",
+    "local": "2027-01-29T11:00:00"
+   },
+   "end": {
+    "timezone": "America/New_York",
+    "utc": "2027-01-29T17:00:00Z",
+    "local": "2027-01-29T12:00:00"
+   },
+   "ticket_availability": {
+    "has_available_tickets": false,
+    "minimum_ticket_price": {
+     "currency": "USD",
+     "value": 0,
+     "major_value": "0.00",
+     "display": "0.00 USD"
+    },
+    "maximum_ticket_price": {
+     "currency": "USD",
+     "value": 0,
+     "major_value": "0.00",
+     "display": "0.00 USD"
+    },
+    "available_minimum_ticket_price": null,
+    "available_maximum_ticket_price": null,
+    "is_sold_out": true,
+    "start_sales_date": null,
+    "waitlist_available": false
+   }
+  },
+  {
+   "id": "2004633026345",
+   "url": "https://www.eventbrite.com/e/james-turrell-exhibition-at-almine-rech-new-york-tickets-2004633026345",
+   "status": "live",
+   "start": {
+    "timezone": "America/New_York",
+    "utc": "2027-01-29T17:00:00Z",
+    "local": "2027-01-29T12:00:00"
+   },
+   "end": {
+    "timezone": "America/New_York",
+    "utc": "2027-01-29T18:00:00Z",
+    "local": "2027-01-29T13:00:00"
+   },
+   "ticket_availability": {
+    "has_available_tickets": false,
+    "minimum_ticket_price": {
+     "currency": "USD",
+     "value": 0,
+     "major_value": "0.00",
+     "display": "0.00 USD"
+    },
+    "maximum_ticket_price": {
+     "currency": "USD",
+     "value": 0,
+     "major_value": "0.00",
+     "display": "0.00 USD"
+    },
+    "available_minimum_ticket_price": null,
+    "available_maximum_ticket_price": null,
+    "is_sold_out": true,
+    "start_sales_date": null,
+    "waitlist_available": false
+   }
+  },
+  {
+   "id": "2004633027348",
+   "url": "https://www.eventbrite.com/e/james-turrell-exhibition-at-almine-rech-new-york-tickets-2004633027348",
+   "status": "live",
+   "start": {
+    "timezone": "America/New_York",
+    "utc": "2027-01-29T18:00:00Z",
+    "local": "2027-01-29T13:00:00"
+   },
+   "end": {
+    "timezone": "America/New_York",
+    "utc": "2027-01-29T19:00:00Z",
+    "local": "2027-01-29T14:00:00"
+   },
+   "ticket_availability": {
+    "has_available_tickets": false,
+    "minimum_ticket_price": {
+     "currency": "USD",
+     "value": 0,
+     "major_value": "0.00",
+     "display": "0.00 USD"
+    },
+    "maximum_ticket_price": {
+     "currency": "USD",
+     "value": 0,
+     "major_value": "0.00",
+     "display": "0.00 USD"
+    },
+    "available_minimum_ticket_price": null,
+    "available_maximum_ticket_price": null,
+    "is_sold_out": true,
+    "start_sales_date": null,
+    "waitlist_available": false
+   }
+  },
+  {
+   "id": "2004633028351",
+   "url": "https://www.eventbrite.com/e/james-turrell-exhibition-at-almine-rech-new-york-tickets-2004633028351",
+   "status": "live",
+   "start": {
+    "timezone": "America/New_York",
+    "utc": "2027-01-29T19:00:00Z",
+    "local": "2027-01-29T14:00:00"
+   },
+   "end": {
+    "timezone": "America/New_York",
+    "utc": "2027-01-29T20:00:00Z",
+    "local": "2027-01-29T15:00:00"
+   },
+   "ticket_availability": {
+    "has_available_tickets": false,
+    "minimum_ticket_price": {
+     "currency": "USD",
+     "value": 0,
+     "major_value": "0.00",
+     "display": "0.00 USD"
+    },
+    "maximum_ticket_price": {
+     "currency": "USD",
+     "value": 0,
+     "major_value": "0.00",
+     "display": "0.00 USD"
+    },
+    "available_minimum_ticket_price": null,
+    "available_maximum_ticket_price": null,
+    "is_sold_out": true,
+    "start_sales_date": null,
+    "waitlist_available": false
+   }
+  },
+  {
+   "id": "2004633029354",
+   "url": "https://www.eventbrite.com/e/james-turrell-exhibition-at-almine-rech-new-york-tickets-2004633029354",
+   "status": "live",
+   "start": {
+    "timezone": "America/New_York",
+    "utc": "2027-01-29T20:00:00Z",
+    "local": "2027-01-29T15:00:00"
+   },
+   "end": {
+    "timezone": "America/New_York",
+    "utc": "2027-01-29T21:00:00Z",
+    "local": "2027-01-29T16:00:00"
+   },
+   "ticket_availability": {
+    "has_available_tickets": false,
+    "minimum_ticket_price": {
+     "currency": "USD",
+     "value": 0,
+     "major_value": "0.00",
+     "display": "0.00 USD"
+    },
+    "maximum_ticket_price": {
+     "currency": "USD",
+     "value": 0,
+     "major_value": "0.00",
+     "display": "0.00 USD"
+    },
+    "available_minimum_ticket_price": null,
+    "available_maximum_ticket_price": null,
+    "is_sold_out": true,
+    "start_sales_date": null,
+    "waitlist_available": false
+   }
+  },
+  {
+   "id": "2004633030357",
+   "url": "https://www.eventbrite.com/e/james-turrell-exhibition-at-almine-rech-new-york-tickets-2004633030357",
+   "status": "live",
+   "start": {
+    "timezone": "America/New_York",
+    "utc": "2027-01-29T21:00:00Z",
+    "local": "2027-01-29T16:00:00"
+   },
+   "end": {
+    "timezone": "America/New_York",
+    "utc": "2027-01-29T22:00:00Z",
+    "local": "2027-01-29T17:00:00"
+   },
+   "ticket_availability": {
+    "has_available_tickets": false,
+    "minimum_ticket_price": {
+     "currency": "USD",
+     "value": 0,
+     "major_value": "0.00",
+     "display": "0.00 USD"
+    },
+    "maximum_ticket_price": {
+     "currency": "USD",
+     "value": 0,
+     "major_value": "0.00",
+     "display": "0.00 USD"
+    },
+    "available_minimum_ticket_price": null,
+    "available_maximum_ticket_price": null,
+    "is_sold_out": true,
+    "start_sales_date": null,
+    "waitlist_available": false
+   }
+  },
+  {
+   "id": "2004633031360",
+   "url": "https://www.eventbrite.com/e/james-turrell-exhibition-at-almine-rech-new-york-tickets-2004633031360",
+   "status": "live",
+   "start": {
+    "timezone": "America/New_York",
+    "utc": "2027-01-29T22:00:00Z",
+    "local": "2027-01-29T17:00:00"
+   },
+   "end": {
+    "timezone": "America/New_York",
+    "utc": "2027-01-29T23:00:00Z",
+    "local": "2027-01-29T18:00:00"
+   },
+   "ticket_availability": {
+    "has_available_tickets": false,
+    "minimum_ticket_price": {
+     "currency": "USD",
+     "value": 0,
+     "major_value": "0.00",
+     "display": "0.00 USD"
+    },
+    "maximum_ticket_price": {
+     "currency": "USD",
+     "value": 0,
+     "major_value": "0.00",
+     "display": "0.00 USD"
+    },
+    "available_minimum_ticket_price": null,
+    "available_maximum_ticket_price": null,
+    "is_sold_out": true,
+    "start_sales_date": null,
+    "waitlist_available": false
+   }
+  },
+  {
+   "id": "2004633032363",
+   "url": "https://www.eventbrite.com/e/james-turrell-exhibition-at-almine-rech-new-york-tickets-2004633032363",
+   "status": "live",
+   "start": {
+    "timezone": "America/New_York",
+    "utc": "2027-01-30T16:00:00Z",
+    "local": "2027-01-30T11:00:00"
+   },
+   "end": {
+    "timezone": "America/New_York",
+    "utc": "2027-01-30T17:00:00Z",
+    "local": "2027-01-30T12:00:00"
+   },
+   "ticket_availability": {
+    "has_available_tickets": false,
+    "minimum_ticket_price": {
+     "currency": "USD",
+     "value": 0,
+     "major_value": "0.00",
+     "display": "0.00 USD"
+    },
+    "maximum_ticket_price": {
+     "currency": "USD",
+     "value": 0,
+     "major_value": "0.00",
+     "display": "0.00 USD"
+    },
+    "available_minimum_ticket_price": null,
+    "available_maximum_ticket_price": null,
+    "is_sold_out": true,
+    "start_sales_date": null,
+    "waitlist_available": false
+   }
+  },
+  {
+   "id": "2004633033366",
+   "url": "https://www.eventbrite.com/e/james-turrell-exhibition-at-almine-rech-new-york-tickets-2004633033366",
+   "status": "live",
+   "start": {
+    "timezone": "America/New_York",
+    "utc": "2027-01-30T17:00:00Z",
+    "local": "2027-01-30T12:00:00"
+   },
+   "end": {
+    "timezone": "America/New_York",
+    "utc": "2027-01-30T18:00:00Z",
+    "local": "2027-01-30T13:00:00"
+   },
+   "ticket_availability": {
+    "has_available_tickets": false,
+    "minimum_ticket_price": {
+     "currency": "USD",
+     "value": 0,
+     "major_value": "0.00",
+     "display": "0.00 USD"
+    },
+    "maximum_ticket_price": {
+     "currency": "USD",
+     "value": 0,
+     "major_value": "0.00",
+     "display": "0.00 USD"
+    },
+    "available_minimum_ticket_price": null,
+    "available_maximum_ticket_price": null,
+    "is_sold_out": true,
+    "start_sales_date": null,
+    "waitlist_available": false
+   }
+  },
+  {
+   "id": "2004633034369",
+   "url": "https://www.eventbrite.com/e/james-turrell-exhibition-at-almine-rech-new-york-tickets-2004633034369",
+   "status": "live",
+   "start": {
+    "timezone": "America/New_York",
+    "utc": "2027-01-30T18:00:00Z",
+    "local": "2027-01-30T13:00:00"
+   },
+   "end": {
+    "timezone": "America/New_York",
+    "utc": "2027-01-30T19:00:00Z",
+    "local": "2027-01-30T14:00:00"
+   },
+   "ticket_availability": {
+    "has_available_tickets": false,
+    "minimum_ticket_price": {
+     "currency": "USD",
+     "value": 0,
+     "major_value": "0.00",
+     "display": "0.00 USD"
+    },
+    "maximum_ticket_price": {
+     "currency": "USD",
+     "value": 0,
+     "major_value": "0.00",
+     "display": "0.00 USD"
+    },
+    "available_minimum_ticket_price": null,
+    "available_maximum_ticket_price": null,
+    "is_sold_out": true,
+    "start_sales_date": null,
+    "waitlist_available": false
+   }
+  },
+  {
+   "id": "2004633035372",
+   "url": "https://www.eventbrite.com/e/james-turrell-exhibition-at-almine-rech-new-york-tickets-2004633035372",
+   "status": "live",
+   "start": {
+    "timezone": "America/New_York",
+    "utc": "2027-01-30T19:00:00Z",
+    "local": "2027-01-30T14:00:00"
+   },
+   "end": {
+    "timezone": "America/New_York",
+    "utc": "2027-01-30T20:00:00Z",
+    "local": "2027-01-30T15:00:00"
+   },
+   "ticket_availability": {
+    "has_available_tickets": false,
+    "minimum_ticket_price": {
+     "currency": "USD",
+     "value": 0,
+     "major_value": "0.00",
+     "display": "0.00 USD"
+    },
+    "maximum_ticket_price": {
+     "currency": "USD",
+     "value": 0,
+     "major_value": "0.00",
+     "display": "0.00 USD"
+    },
+    "available_minimum_ticket_price": null,
+    "available_maximum_ticket_price": null,
+    "is_sold_out": true,
+    "start_sales_date": null,
+    "waitlist_available": false
+   }
+  },
+  {
+   "id": "2004633036375",
+   "url": "https://www.eventbrite.com/e/james-turrell-exhibition-at-almine-rech-new-york-tickets-2004633036375",
+   "status": "live",
+   "start": {
+    "timezone": "America/New_York",
+    "utc": "2027-01-30T20:00:00Z",
+    "local": "2027-01-30T15:00:00"
+   },
+   "end": {
+    "timezone": "America/New_York",
+    "utc": "2027-01-30T21:00:00Z",
+    "local": "2027-01-30T16:00:00"
+   },
+   "ticket_availability": {
+    "has_available_tickets": false,
+    "minimum_ticket_price": {
+     "currency": "USD",
+     "value": 0,
+     "major_value": "0.00",
+     "display": "0.00 USD"
+    },
+    "maximum_ticket_price": {
+     "currency": "USD",
+     "value": 0,
+     "major_value": "0.00",
+     "display": "0.00 USD"
+    },
+    "available_minimum_ticket_price": null,
+    "available_maximum_ticket_price": null,
+    "is_sold_out": true,
+    "start_sales_date": null,
+    "waitlist_available": false
+   }
+  },
+  {
+   "id": "2004633037378",
+   "url": "https://www.eventbrite.com/e/james-turrell-exhibition-at-almine-rech-new-york-tickets-2004633037378",
+   "status": "live",
+   "start": {
+    "timezone": "America/New_York",
+    "utc": "2027-01-30T21:00:00Z",
+    "local": "2027-01-30T16:00:00"
+   },
+   "end": {
+    "timezone": "America/New_York",
+    "utc": "2027-01-30T22:00:00Z",
+    "local": "2027-01-30T17:00:00"
+   },
+   "ticket_availability": {
+    "has_available_tickets": false,
+    "minimum_ticket_price": {
+     "currency": "USD",
+     "value": 0,
+     "major_value": "0.00",
+     "display": "0.00 USD"
+    },
+    "maximum_ticket_price": {
+     "currency": "USD",
+     "value": 0,
+     "major_value": "0.00",
+     "display": "0.00 USD"
+    },
+    "available_minimum_ticket_price": null,
+    "available_maximum_ticket_price": null,
+    "is_sold_out": true,
+    "start_sales_date": null,
+    "waitlist_available": false
+   }
+  },
+  {
+   "id": "2004633038381",
+   "url": "https://www.eventbrite.com/e/james-turrell-exhibition-at-almine-rech-new-york-tickets-2004633038381",
+   "status": "live",
+   "start": {
+    "timezone": "America/New_York",
+    "utc": "2027-01-30T22:00:00Z",
+    "local": "2027-01-30T17:00:00"
+   },
+   "end": {
+    "timezone": "America/New_York",
+    "utc": "2027-01-30T23:00:00Z",
+    "local": "2027-01-30T18:00:00"
+   },
+   "ticket_availability": {
+    "has_available_tickets": false,
+    "minimum_ticket_price": {
+     "currency": "USD",
+     "value": 0,
+     "major_value": "0.00",
+     "display": "0.00 USD"
+    },
+    "maximum_ticket_price": {
+     "currency": "USD",
+     "value": 0,
+     "major_value": "0.00",
+     "display": "0.00 USD"
+    },
+    "available_minimum_ticket_price": null,
+    "available_maximum_ticket_price": null,
+    "is_sold_out": true,
+    "start_sales_date": null,
+    "waitlist_available": false
+   }
+  }
+ ]
+}

@@ -1,0 +1,10 @@
+.env
+.env.*
+supabase/.temp/
+supabase/.branches/
+# Raw scout captures (response headers contain Eventbrite cookies) — trimmed copies live in fixtures/
+docs/goals/**/notes/fixtures/
+.goalbuddy-board/
+docs/goals/**/.goalbuddy-board/
+.DS_Store
+node_modules/

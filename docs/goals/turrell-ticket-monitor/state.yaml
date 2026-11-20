@@ -1,0 +1,277 @@
+# GoalBuddy v2 state.yaml
+# Board truth lives here. goal.md is the editable charter; notes/ holds long receipts only.
+
+version: 2
+
+goal:
+  title: "Turrell Eventbrite ticket monitor"
+  slug: "turrell-ticket-monitor"
+  kind: specific
+  tranche: "continuous execution: discover -> prove edge fetch -> build -> deploy free Supabase project -> live Discord proof -> public repo -> final audit"
+  status: active
+  oracle:
+    signal: "Deployed turrell-check Edge Function in Supabase project turrell-monitor runs ~every minute via pg_cron, records live per-slot state, and a forced/simulated 'available' run through the same parser+alert path posts a real no-mention Discord alert (ticket link + opened slots) the user confirms; public repo muchomark/turrell-ticket-monitor holds the code; auto-disable after last exhibition date; $0 cost."
+    cadence: "after each Worker package and at final audit"
+    final_proof: "Receipts showing: deno test pass; cron.job_run_details >=10 min successful runs; state table rows with last_checked_at fresh; user-confirmed Discord test alert; gh repo view URL (public); end-date unschedule logic; $0 cost confirmation."
+  intake:
+    original_request: "Create a GitHub repo + monitor for the Eventbrite James Turrell exhibition at Almine Rech NY that sends a Discord webhook once sold-out tickets become available again."
+    interpreted_outcome: "A $0, polite, ~1-minute Supabase-hosted watcher that alerts Discord (no mention) the moment any slot of this event leaves sold-out, shipped as a public GitHub repo, auto-stopping after the exhibition ends."
+    input_shape: specific
+    audience: "Repo owner (GitHub muchomark) and their Discord channel"
+    authority: approved
+    proof_type: demo
+    completion_proof: "User-confirmed real Discord alert from the deployed function on a forced-available run, plus pg_cron history of successful live checks, plus public repo URL."
+    likely_misfire: "Parser reads the wrong signal (page text, one ticket class, series parent instead of child dates) so it never fires or fires falsely; a green sold-out read is not proof."
+    blind_spots_considered:
+      - "Eventbrite bot protection may block Supabase/AWS egress — prove fetch from a deployed Edge Function first."
+      - "Free Supabase projects pause after ~7 days inactivity — verify whether cron/pg_net counts; add $0 keep-alive if not (GH Actions needs `gh auth refresh -s workflow`)."
+      - "Availability-only alerts means silent failure — record last_error/last_checked_at and document health checks in README."
+      - "Public repo — secrets only in Supabase secrets/Vault."
+      - "Rate politeness — <=1 req/min with jitter, backoff on 403/429/5xx, fixtures for tests."
+      - "Timed-entry series may add new dates — treat newly added on-sale dates as available."
+    existing_plan_facts:
+      - "Hosting: Supabase Edge Function (Deno) + pg_cron + pg_net, free tier only."
+      - "Create NEW Supabase project 'turrell-monitor' after confirming $0; never touch 'legaz'."
+      - "Trigger: any ticket class/slot/date sold_out -> available; alert lists opened slots + ticket link."
+      - "Alerts: availability only, one per transition, no @mention, no heartbeat/error/sold-out-again messages."
+      - "Scope: notify only — no auto-purchase/cart/login."
+      - "Webhook URL pasted by user during run; store as secret DISCORD_WEBHOOK_URL."
+      - "Repo: public, under muchomark; gh token scopes repo,gist,read:org (no workflow)."
+      - "Lifetime: auto-stop after exhibition's last date."
+      - "Proof: live test webhook to the user's Discord."
+
+rules:
+  pm_owns_state: true
+  one_active_task: true
+  max_write_workers: 1
+  no_implementation_without_worker_or_pm_task: true
+  no_completion_without_judge_or_pm_audit: true
+  planning_is_not_completion: true
+  queued_required_worker_blocks_completion: true
+  continuous_until_full_outcome: true
+  missing_input_or_credentials_do_not_stop_goal: true
+  exact_human_approval_can_terminal_wait: true
+  preserve_and_validate_existing_plan: true
+  intake_misfire_must_be_audited: true
+  goal_pressure_requires_oracle: true
+  no_completion_on_weak_proof: true
+  slice_policy:
+    max_consecutive_tiny_tasks: 2
+    prefer_vertical_slices: true
+    judge_picks_largest_safe_slice: true
+    worker_completes_whole_slice: true
+
+agents:
+  scout: installed
+  worker: installed
+  judge: installed
+
+visual_board:
+  selected: local
+  local:
+    status: live
+    url: "http://goalbuddy.localhost:41737/turrell-ticket-monitor/"
+    command: "node ~/.claude/skills/goalbuddy/surfaces/local-goal-board/scripts/local-goal-board.mjs --goal docs/goals/turrell-ticket-monitor"
+
+active_task: T005
+
+tasks:
+  - id: T001
+    type: scout
+    assignee: Scout
+    status: done
+    reasoning_hint: medium
+    objective: "Map exactly how Eventbrite exposes per-slot ticket availability for event 2004288042489 and find the exhibition's last date."
+    inputs:
+      - "https://www.eventbrite.com/e/james-turrell-exhibition-at-almine-rech-new-york-tickets-2004288042489"
+    constraints:
+      - "Read-only. Fetch the page at most a handful of times total; save raw HTML/JSON fixtures to notes/fixtures/ for reuse."
+      - "Determine single event vs series (child event IDs / dates / time slots)."
+      - "Compare signals: embedded __SERVER_DATA__ / JSON-LD offers availability, public eventbrite.com/api/v3 or destination endpoints, ticket_classes (on_sale_status, sold_out), checkout widget endpoints. Prefer the one that needs no token, fewest requests, and is structured."
+      - "Note response headers relevant to politeness (cache-control, ETag, rate limit, bot challenge)."
+    expected_output:
+      - "notes/T001-eventbrite-availability.md with chosen candidate signals + exact JSON paths"
+      - "Raw fixtures of current sold-out state"
+      - "List of all slots/dates and the exhibition last date"
+      - "Polite polling recommendation"
+    receipt:
+      result: done
+      note: notes/T001-eventbrite-availability.md
+      summary: "Series parent with 279 hourly timed-entry child sessions (last 2027-01-30 17:00 ET). Chosen signal: tokenless /api/v3/series/2004288042489/events/?time_filter=current_future&page_size=200&expand=ticket_availability (no-cache, live) -> per-child ticket_availability.is_sold_out/has_available_tickets; 2 requests cover all sessions. Rejected: page HTML (CloudFront-cached up to 12h stale), JSON-LD (says InStock while sold out), parent destination record (says on_sale). All 279 currently sold out."
+      evidence:
+        - notes/fixtures/series_full.json
+        - notes/fixtures/series_full_p2.json
+        - notes/fixtures/series2.headers.txt
+  - id: T002
+    type: scout
+    assignee: Scout
+    status: done
+    reasoning_hint: medium
+    objective: "Establish Supabase free-tier facts for this design and whether Edge Function egress can reach Eventbrite unblocked."
+    inputs:
+      - "T001 receipt"
+      - "Supabase docs (search_docs MCP)"
+    constraints:
+      - "Read-only on Supabase; do not touch project 'legaz'. The edge-egress test may need to happen in T005 once turrell-monitor exists — if so, record that dependency."
+      - "Confirm: pg_cron + pg_net on free tier, Edge Function invocation quota vs 1/min (~43k/mo), minimum cron interval, free-project pause-on-inactivity rules and whether cron/pg_net traffic prevents pausing, $0 cost for a 2nd free project in the org."
+    expected_output:
+      - "notes/T002-supabase-free-tier.md"
+      - "Keep-alive recommendation (none needed / in-DB / GitHub Actions requiring workflow scope)"
+    receipt:
+      result: done
+      note: notes/T002-supabase-free-tier.md
+      summary: "Org 'le gaz' is Pro -> new project there costs money. Owner chose: create a new free-plan org (user action) and host turrell-monitor there. pg_cron/pg_net/Vault available; 500K free invocations/mo covers 30s-1min cadence; per-run DB upserts should prevent 7-day pausing, so no GH Actions keep-alive initially. Edge egress test deferred to T005."
+      spawned_tasks: []
+  - id: T003
+    type: judge
+    assignee: Judge
+    status: done
+    reasoning_hint: high
+    objective: "Choose detection method, polling cadence, backoff, state schema, alert format, end-date auto-stop, and keep-alive; define the T004 Worker package."
+    inputs:
+      - "T001 receipt"
+      - "T002 receipt"
+    constraints:
+      - "Do not implement."
+      - "Must explicitly address the likely misfire (series vs parent, all ticket classes, newly added dates)."
+      - "Pick the largest safe useful slice."
+    expected_output:
+      - "Decision"
+      - "Exact Worker objective"
+      - "allowed_files"
+      - "verify"
+      - "stop_if"
+    receipt:
+      result: done
+      decision: approved_with_changes
+      full_outcome_complete: false
+      note: notes/T003-judge-decision.md
+      rationale: "Series-children signal confirmed against fixtures. Required C1-C10: 1-min cadence + jitter, stricter AND availability rule with mismatch state, unknown preserves state, fail-closed run validation, atomic claim RPC, Discord limits/no mentions, force-test through real diff, header secret (Vault-generated per PM amendment), timeouts, gitignore fixtures."
+  - id: T004
+    type: worker
+    assignee: Worker
+    status: done
+    reasoning_hint: medium
+    objective: "Build the full monitor locally: git init, Deno Edge Function supabase/functions/turrell-check (fetch -> parse all slots -> diff vs stored state -> Discord alert on sold_out->available, no mention), parser + transition unit tests against T001 fixtures incl. a synthetic 'available' fixture, SQL migrations (state table, pg_cron+pg_net 1-min job with secrets via Vault, auto-unschedule after end date, any keep-alive), README (setup, health checks, how to stop), .gitignore."
+    allowed_files:
+      - "supabase/**"
+      - "tests/**"
+      - "fixtures/**"
+      - "README.md"
+      - ".gitignore"
+      - "deno.json"
+      - "deno.lock"
+      - "LICENSE"
+    verify:
+      - "deno test --allow-read"
+      - "deno check supabase/functions/turrell-check/index.ts"
+      - "deno lint"
+      - "git grep -nE 'discord(app)?\\.com/api/webhooks/[0-9]|eyJhbGciOi|sb_secret_|[a-z]{20}\\.supabase\\.co' returns nothing"
+    stop_if:
+      - "Need files outside allowed_files."
+      - "Parser cannot distinguish available vs sold-out from fixtures."
+      - "Verification fails twice."
+      - "Any design element would cost money or touch project 'legaz'."
+    receipt:
+      result: done
+      changed_files:
+        - supabase/functions/turrell-check/lib.ts
+        - supabase/functions/turrell-check/index.ts
+        - supabase/migrations/20261120000001_turrell_monitor.sql
+        - supabase/migrations/20261120000002_turrell_cron.sql
+        - tests/lib_test.ts
+        - fixtures/
+        - README.md
+        - LICENSE
+        - .gitignore
+        - deno.json
+        - deno.lock
+      commands:
+        - cmd: deno test --allow-read
+          status: pass
+          detail: "14 passed, 0 failed"
+        - cmd: deno check supabase/functions/turrell-check/index.ts
+          status: pass
+        - cmd: deno lint
+          status: pass
+        - cmd: deno fmt --check
+          status: pass
+        - cmd: git grep secret patterns
+          status: pass
+          detail: "only match is the pattern text itself in state.yaml"
+      summary: "Full monitor built with Judge C1-C10: strict per-session classifier, fail-closed validation, atomic claim RPC, Vault-generated cron secret, batched no-mention Discord alert (<=2000 chars), force-test via SQL flag through real diff, auto-stop (function gate + turrell-stop cron), backoff. git init done (branch main). Deno installed via brew (2.9.8)."
+  - id: T005
+    type: pm
+    assignee: PM
+    status: active
+    reasoning_hint: medium
+    objective: "Provision and deploy: in the user's NEW free-plan Supabase org (not Pro org le gaz), create project 'turrell-monitor' at $0, ask user to paste Discord webhook URL, set DISCORD_WEBHOOK_URL secret, deploy turrell-check, apply migrations, run one manual invocation and confirm Eventbrite fetch succeeds from the edge."
+    constraints:
+      - "Ask once for cost confirmation and once for the webhook URL; block only this task while waiting."
+      - "Never write the webhook URL to any tracked file or log."
+      - "Never modify project 'legaz'."
+    expected_output:
+      - "Project ref, deployed function version, migration list, first invocation result"
+    receipt: null
+  - id: T006
+    type: worker
+    assignee: Worker
+    status: queued
+    reasoning_hint: medium
+    objective: "Live verification and fixes: confirm >=10 min of successful pg_cron runs and fresh per-slot state; trigger a forced/simulated 'available' run through the deployed parser+alert path so a real Discord alert arrives; get user confirmation; reset state afterwards; fix any defects found."
+    allowed_files:
+      - "supabase/**"
+      - "tests/**"
+      - "fixtures/**"
+      - "README.md"
+    verify:
+      - "select * from cron.job_run_details order by start_time desc limit 15 (all succeeded)"
+      - "state table last_checked_at within last 2 minutes"
+      - "User confirms test alert received in Discord"
+      - "deno test --allow-read"
+    stop_if:
+      - "Eventbrite returns 403/429/challenge from edge — escalate to Judge for alternative host/approach."
+      - "Verification fails twice."
+    receipt: null
+  - id: T007
+    type: pm
+    assignee: PM
+    status: queued
+    reasoning_hint: low
+    objective: "Publish: gh repo create muchomark/turrell-ticket-monitor --public, commit (with Co-Authored-By trailer), push; if a GitHub Actions keep-alive was chosen, ask user to run `gh auth refresh -s workflow` first."
+    constraints:
+      - "Re-scan for secrets before first push."
+    expected_output:
+      - "Public repo URL and pushed commit SHA"
+    receipt: null
+  - id: T999
+    type: judge
+    assignee: Judge
+    status: queued
+    reasoning_hint: high
+    objective: "Final audit against the goal oracle; decide full_outcome_complete."
+    inputs:
+      - "All done task receipts"
+      - "Last verification"
+      - "Current dirty diff"
+    constraints:
+      - "Do not implement."
+      - "Reject completion if required Worker work is still queued or active."
+      - "Reject completion if only a sold-out read was proven (likely misfire) without a forced-available Discord alert."
+      - "Reject completion if any secret is in the public repo or any cost was incurred."
+    expected_output:
+      - "complete | not_complete"
+      - "full_outcome_complete: true | false"
+      - "missing evidence"
+      - "next task if not complete"
+    receipt: null
+
+checks:
+  dirty_fingerprint: unknown
+  last_verification:
+    result: pass
+    task: T004
+    commands:
+      - "deno test --allow-read"
+      - "deno check supabase/functions/turrell-check/index.ts"
+      - "deno lint"
