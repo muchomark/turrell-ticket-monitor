@@ -8,7 +8,7 @@ goal:
   slug: "turrell-ticket-monitor"
   kind: specific
   tranche: "continuous execution: discover -> prove edge fetch -> build -> deploy free Supabase project -> live Discord proof -> public repo -> final audit"
-  status: active
+  status: done
   oracle:
     signal: "Deployed turrell-check Edge Function in Supabase project turrell-monitor runs ~every minute via pg_cron, records live per-slot state, and a forced/simulated 'available' run through the same parser+alert path posts a real no-mention Discord alert (ticket link + opened slots) the user confirms; public repo muchomark/turrell-ticket-monitor holds the code; auto-disable after last exhibition date; $0 cost."
     cadence: "after each Worker package and at final audit"
@@ -73,7 +73,7 @@ visual_board:
     url: "http://goalbuddy.localhost:41737/turrell-ticket-monitor/"
     command: "node ~/.claude/skills/goalbuddy/surfaces/local-goal-board/scripts/local-goal-board.mjs --goal docs/goals/turrell-ticket-monitor"
 
-active_task: T006
+active_task: null
 
 tasks:
   - id: T001
@@ -230,7 +230,7 @@ tasks:
   - id: T006
     type: worker
     assignee: Worker
-    status: active
+    status: done
     reasoning_hint: medium
     objective: "Live verification and fixes: confirm >=10 min of successful pg_cron runs and fresh per-slot state; trigger a forced/simulated 'available' run through the deployed parser+alert path so a real Discord alert arrives; get user confirmation; reset state afterwards; fix any defects found."
     allowed_files:
@@ -246,7 +246,31 @@ tasks:
     stop_if:
       - "Eventbrite returns 403/429/challenge from edge — escalate to Judge for alternative host/approach."
       - "Verification fails twice."
-    receipt: null
+    receipt:
+      result: done
+      changed_files:
+        - supabase/functions/turrell-check/lib.ts
+        - supabase/functions/turrell-check/index.ts
+        - tests/lib_test.ts
+        - README.md
+      commands:
+        - cmd: "net._http_response summary"
+          status: pass
+          detail: "12/12 runs HTTP 200 from 17:48 to 17:59 UTC (11 min)"
+        - cmd: "cron.job_run_details for turrell-check"
+          status: pass
+          detail: "12/12 succeeded"
+        - cmd: "force_test runs at 17:50, 17:53, 17:54 and 17:59"
+          status: pass
+          detail: "discord 200 each time; user confirmed receipt ('good start')"
+        - cmd: "REAL transition at 17:56 UTC"
+          status: pass
+          detail: "session 2004288220020 (Fri Nov 20 3 PM ET) went sold_out -> available; alert sent; user confirmed 'a real alert just came in and it worked'"
+        - cmd: deno test --allow-read
+          status: pass
+          detail: "19 passed"
+      summary: "Live monitor verified end to end, including a real sold-out -> available alert. While verifying, the user asked for better alert styling, done in three passes: (1) Discord embed via the copywriting skill, (2) embed only with no plain-text content, (3) adaptive layout chosen by the user: single-session headline, per-day inline grid, 'All N times' collapse, Today/Tomorrow labels, short times, year only when needed, ⚡ flag within 2h, size-budgeted under Discord limits. Also fixed flipForTest so it never flips a session that has already started. Commits e4b7c9c, 92b58ed, d553d58 pushed."
+
   - id: T007
     type: pm
     assignee: PM
@@ -266,7 +290,7 @@ tasks:
   - id: T999
     type: judge
     assignee: Judge
-    status: queued
+    status: done
     reasoning_hint: high
     objective: "Final audit against the goal oracle; decide full_outcome_complete."
     inputs:
@@ -283,13 +307,21 @@ tasks:
       - "full_outcome_complete: true | false"
       - "missing evidence"
       - "next task if not complete"
-    receipt: null
+    receipt:
+      result: done
+      decision: complete
+      full_outcome_complete: true
+      rationale: "All 5 oracle items were checked against receipts and independent read-only checks. (1) Public repo, pushed tree complete, secret grep clean, .env untracked. (2) turrell-check active; 13/13 cron runs succeeded and 13/13 HTTP 200 from 17:48 to 18:00 UTC; last_ok_at fresh. (3) Forced test alerts plus a REAL sold_out->available alert at 17:56 UTC, both user-confirmed; allowed_mentions parse:[]. (4) isExpired gate at 2027-01-30T23:00Z plus turrell-stop cron. (5) Free-plan org 'turrell', $0. Likely misfire handled: per-child ticket_availability across all pages, strict AND rule, fail-closed count check."
+      post_audit_fix: "The Judge found that a mismatch preserved a stored 'true', so a later re-open would never alert. PM fix: mismatch is now stored as not-available (still never alerts) and a regression test was added (20/20 pass). Deployed, and the stuck session 2004288220020 was reset to false at 18:01 UTC."
+      residual_risks:
+        - "Free-project pausing after ~7 days is unconfirmed. Check turrell_monitor_status.last_ok_at in a week."
+        - "Errors are not sent to Discord (owner choice); health is visible only in turrell_monitor_status."
 
 checks:
   dirty_fingerprint: unknown
   last_verification:
     result: pass
-    task: T004
+    task: T006
     commands:
       - "deno test --allow-read"
       - "deno check supabase/functions/turrell-check/index.ts"

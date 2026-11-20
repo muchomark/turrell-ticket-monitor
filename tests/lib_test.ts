@@ -110,9 +110,22 @@ Deno.test("mismatch (is_sold_out=false but has_available!=true) does not alert; 
   assertEquals(d.opened.length, 0);
   assertEquals(d.mismatches.length, 1);
   assertEquals(d.unknowns.length, 1);
-  // neither is written, so stored values survive
-  assert(!d.upserts.some((r) => r.event_id === "2004288222026" || r.event_id === "2004288225035"));
+  // unknown is not written (stored value survives); mismatch is stored as not-available
+  assert(!d.upserts.some((r) => r.event_id === "2004288225035"));
+  assertEquals(d.upserts.find((r) => r.event_id === "2004288222026")?.available, false);
   assertEquals(d.deletes.length, 0);
+});
+
+Deno.test("available -> mismatch -> available alerts again (no stuck 'true')", async () => {
+  const { sessions } = await sessionsFrom("series_page1_mismatch_unknown.json");
+  const store = soldOutStore(sessions);
+  store.set("2004288222026", true); // was available, now mismatch
+  for (const r of diff(sessions, store).upserts) store.set(r.event_id, r.available);
+  assertEquals(store.get("2004288222026"), false);
+  const reopened = sessions.map((
+    s,
+  ) => (s.id === "2004288222026" ? { ...s, state: "available" as const } : s));
+  assertEquals(diff(reopened, store).opened.map((s) => s.id), ["2004288222026"]);
 });
 
 Deno.test("sessions gone from response are deleted without alert", async () => {

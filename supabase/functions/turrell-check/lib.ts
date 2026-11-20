@@ -169,7 +169,10 @@ export function diff(sessions: Session[], stored: Map<string, boolean>): DiffRes
         upserts.push(row(false));
         break;
       case "mismatch":
-        mismatches.push(s); // keep stored value, never written
+        // Contradictory data (is_sold_out=false, no available tickets): never alert, but store as
+        // not-available so a later genuine re-open is still a sold_out -> available transition.
+        mismatches.push(s);
+        upserts.push(row(false));
         break;
       case "unknown":
         unknowns.push(s); // keep stored value, never written

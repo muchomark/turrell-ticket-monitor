@@ -29,7 +29,7 @@ by CloudFront for up to 12 hours. Only the per-child `ticket_availability` is tr
 
 **A session counts as available** only if `has_available_tickets === true`, `is_sold_out !== true`, its status is
 `live`/`started`, and it hasn't started yet. Contradictory data (`is_sold_out: false` but no available tickets) is logged
-as a *mismatch* and doesn't alert. A run that fails partway (an HTTP error, a bot challenge, a missing page, a count
+as a *mismatch*: it never alerts, and it's stored as not available, so a later real reopening still alerts. A run that fails partway (an HTTP error, a bot challenge, a missing page, a count
 mismatch, or more than 50% unparseable sessions) writes nothing and alerts nobody.
 
 **Politeness:** about 2 GETs a minute with jitter. HTTP 403/429/5xx or a challenge page triggers exponential backoff (2, 4, 8… up to 30 min).
