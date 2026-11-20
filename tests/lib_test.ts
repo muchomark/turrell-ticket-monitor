@@ -4,6 +4,7 @@ import {
   classify,
   COLOR_LIVE,
   COLOR_TEST,
+  dayLabel,
   diff,
   END_UTC_MS,
   EVENT_URL,
@@ -12,7 +13,10 @@ import {
   formatLocal,
   isExpired,
   localParts,
+  nyDate,
   type Session,
+  shortTime,
+  soonFlag,
   UpstreamError,
   validateRun,
 } from "../supabase/functions/turrell-check/lib.ts";
@@ -169,53 +173,121 @@ Deno.test("challenge HTML, HTTP 403/429 and bad JSON throw UpstreamError", async
   await assertRejects(() => fetchAllPages(fakeFetch(p1, html).fn), UpstreamError);
 });
 
-Deno.test("message: styled embed, grouped by day, no mentions, within Discord limits", async () => {
+// Helpers for message tests. NOW = Fri Nov 20 2026, 11:30 AM ET.
+const at = (sessions: Session[], local: string) => sessions.find((s) => s.startLocal === local)!;
+const open = (xs: Session[]) => xs.map((s) => ({ ...s, state: "available" as const }));
+
+Deno.test("message: single session tomorrow -> date+time headline, one CTA, embed only", async () => {
   const { sessions } = await sessionsFrom();
-  const opened = sessions.slice(0, 25).map((s) => ({ ...s, state: "available" as const }));
-  const msg = buildMessage(opened, { nowIso: "2026-11-20T18:00:00.000Z" });
+  const s = at(sessions, "2026-11-21T13:00:00");
+  const msg = buildMessage(open([s]), {
+    nowMs: NOW,
+    allSessions: sessions,
+    nowIso: "2026-11-20T16:30:00.000Z",
+  });
+  assertEquals(Object.keys(msg).sort(), ["allowed_mentions", "embeds", "username"]); // no plain-text content
   assertEquals(msg.allowed_mentions, { parse: [] });
-  assertEquals(msg.username, "Turrell Watch");
-  assertEquals(Object.keys(msg).sort(), ["allowed_mentions", "embeds", "username"]); // embed only, no content
-  assertEquals(msg.embeds.length, 1);
   const e = msg.embeds[0];
+  assertEquals(e.title, "Tomorrow · Sat, Nov 21 · 1 PM just opened");
+  assertEquals(e.url, s.url);
   assertEquals(e.color, COLOR_LIVE);
-  assertEquals(e.url, opened[0].url);
-  assertEquals(e.timestamp, "2026-11-20T18:00:00.000Z");
-  assert(e.description.length <= 4096 && e.title.length <= 256);
-  // day headers + each time is a masked link to its session
-  assertStringIncludes(e.description, "**Fri, Nov 20**");
-  assertStringIncludes(e.description, "**Sat, Nov 21**");
-  assertStringIncludes(e.description, `[12:00 PM](${opened[0].url})`);
-  assertEquals(
-    (e.description.match(/\]\(https:\/\/www\.eventbrite\.com\/e\/[^)]+-tickets-\d+\)/g) ?? []).length,
-    25 + 1,
-  );
-  assertStringIncludes(e.description, `**[Reserve a free slot →](${opened[0].url})**`);
-  const all = JSON.stringify(msg);
-  assert(!all.includes("@everyone") && !all.includes("@here"));
-  assert(JSON.stringify(e).length < 6000);
-  // singular copy
-  assertStringIncludes(e.description, "**25 free sessions**");
-  assertStringIncludes(buildMessage(opened.slice(0, 1)).embeds[0].description, "**1 free session**");
+  assertStringIncludes(e.description, `**[Reserve this slot →](${s.url})**`);
+  assert(!e.description.includes("⚡"));
+  assertEquals(e.fields, undefined);
 });
 
-Deno.test("message: very many sessions are capped with an event-page link", async () => {
+Deno.test("message: single session starting soon gets the ⚡ flag", async () => {
   const { sessions } = await sessionsFrom();
-  const opened = sessions.map((s) => ({ ...s, state: "available" as const }));
-  const e = buildMessage(opened).embeds[0];
-  assert(e.description.length <= 4096);
-  const shown =
-    (e.description.match(/\]\(https:\/\/www\.eventbrite\.com\/e\/[^)]+-tickets-\d+\)/g) ?? []).length - 2; // minus CTA + "event page" links
-  const more = Number(/\+(\d+) more on the \[event page\]/.exec(e.description)?.[1]);
-  assert(shown >= 20 && shown <= 40, `shown ${shown}`);
-  assertEquals(shown + more, 279);
+  const s = at(sessions, "2026-11-20T12:00:00"); // 12 PM ET = 30 min after NOW
+  const e = buildMessage(open([s]), { nowMs: NOW, allSessions: sessions }).embeds[0];
+  assertEquals(e.title, "Today · Fri, Nov 20 · 12 PM just opened");
+  assertStringIncludes(e.description, "⚡ in 30 min");
 });
 
-Deno.test("formatLocal / localParts render ET wall time", () => {
+Deno.test("message: many sessions -> day grid, 'All N times' collapse, CTA last", async () => {
+  const { sessions } = await sessionsFrom();
+  const picked = [
+    at(sessions, "2026-11-20T15:00:00"),
+    at(sessions, "2026-11-20T16:00:00"),
+    ...sessions.filter((s) => s.startLocal.startsWith("2026-11-21")), // whole Saturday (7)
+    at(sessions, "2026-11-24T11:00:00"),
+    at(sessions, "2026-11-24T14:00:00"),
+  ];
+  const e = buildMessage(open(picked), { nowMs: NOW, allSessions: sessions }).embeds[0];
+  assertEquals(e.title, "11 Turrell sessions just opened");
+  assertEquals(e.url, picked[0].url);
+  assertEquals(e.description, "3 days · earliest Today 3 PM");
+  const f = e.fields!;
+  assertEquals(f.length, 4);
+  assertEquals(f[0].name, "Today · Fri, Nov 20");
+  assertEquals(f[0].value, `[3 PM](${picked[0].url}) · [4 PM](${picked[1].url})`);
+  assert(f[0].inline);
+  assertEquals(f[1].name, "Tomorrow · Sat, Nov 21");
+  assertEquals(f[1].value, `[All 7 times](${picked[2].url}) · 11 AM–5 PM`);
+  assertEquals(f[2].name, "Tue, Nov 24");
+  assertEquals(f[2].value.split(" · ").length, 2);
+  assertStringIncludes(f[3].value, `[Reserve the earliest slot →](${picked[0].url})`);
+  assert(!f[3].inline);
+});
+
+Deno.test("message: today's remaining sessions all open collapses too", async () => {
+  const { sessions } = await sessionsFrom();
+  const later = Date.parse("2026-11-20T19:30:00Z"); // 2:30 PM ET: 3, 4, 5 PM remain
+  const rest = sessions.filter((s) =>
+    s.startLocal.startsWith("2026-11-20") && Date.parse(s.startUtc) > later
+  );
+  const other = at(sessions, "2026-11-24T11:00:00");
+  const e = buildMessage(open([...rest, other]), { nowMs: later, allSessions: sessions }).embeds[0];
+  assertEquals(e.fields![0].value, `[All 3 times](${rest[0].url}) · 3 PM–5 PM`);
+  assertStringIncludes(e.description, "⚡ in 30 min");
+});
+
+Deno.test("message: huge release stays within Discord limits with '+N more days'", async () => {
+  const { sessions } = await sessionsFrom();
+  const e = buildMessage(open(sessions.filter((s) => Date.parse(s.startUtc) > NOW)), {
+    nowMs: NOW,
+    allSessions: sessions,
+  }).embeds[0];
+  const size = e.title.length + e.description.length + e.footer.text.length +
+    e.fields!.reduce((n, f) => n + f.name.length + f.value.length, 0);
+  assert(size <= 6000, `size ${size}`);
+  assert(e.fields!.length <= 25);
+  assert(e.description.length <= 4096);
+  assert(e.fields!.every((f) => f.value.length <= 1024 && f.name.length <= 256));
+  const more = e.fields!.find((f) => f.name.startsWith("+"))!;
+  const dayFields = e.fields!.filter((f) => f.inline).length;
+  assertEquals(dayFields + Number(/\+(\d+)/.exec(more.name)![1]), 40);
+  assertStringIncludes(more.value, EVENT_URL);
+  assertStringIncludes(e.fields!.at(-1)!.value, "Reserve the earliest slot");
+  assertStringIncludes(e.fields![1].value, "[All 7 times]"); // full Saturday collapses
+});
+
+Deno.test("message: test variant is amber and clearly labelled", async () => {
+  const { sessions } = await sessionsFrom();
+  const msg = buildMessage(open([at(sessions, "2026-11-24T11:00:00")]), { test: true, nowMs: NOW });
+  const e = msg.embeds[0];
+  assert(e.title.startsWith("TEST · "));
+  assertEquals(e.color, COLOR_TEST);
+  assertStringIncludes(e.description, "**Test alert.**");
+  assert(!JSON.stringify(msg).match(/@everyone|@here/));
+});
+
+Deno.test("labels: short times, day labels, year only when needed, soon flag", () => {
+  assertEquals(shortTime("2026-11-21T13:00:00"), "1 PM");
+  assertEquals(shortTime("2026-11-21T12:30:00"), "12:30 PM");
+  assertEquals(shortTime("2026-11-21T00:00:00"), "12 AM");
+  assertEquals(nyDate(Date.parse("2026-11-21T03:00:00Z")), "2026-11-20"); // 10 PM ET still the 20th
+  assertEquals(dayLabel("2026-11-20", NOW), "Today · Fri, Nov 20");
+  assertEquals(dayLabel("2026-11-21", NOW), "Tomorrow · Sat, Nov 21");
+  assertEquals(dayLabel("2026-11-24", NOW), "Tue, Nov 24");
+  assertEquals(dayLabel("2027-01-30", NOW), "Sat, Jan 30, 2027");
+  assertEquals(dayLabel("2027-01-30", Date.parse("2027-01-29T15:00:00Z")), "Tomorrow · Sat, Jan 30");
+  assertEquals(soonFlag("2026-11-20T17:00:00Z", NOW), "⚡ in 30 min");
+  assertEquals(soonFlag("2026-11-20T18:05:00Z", NOW), "⚡ in 1 h 35 min");
+  assertEquals(soonFlag("2026-11-20T18:31:00Z", NOW), "");
+  assertEquals(soonFlag("2026-11-20T16:00:00Z", NOW), "");
   assertEquals(formatLocal("2027-01-30T17:00:00"), "Sat, Jan 30 · 5:00 PM ET");
-  assertEquals(formatLocal("2026-11-21T11:00:00"), "Sat, Nov 21 · 11:00 AM ET");
   assertEquals(localParts("2026-11-21T12:30:00"), { day: "Sat, Nov 21", time: "12:30 PM" });
-  assertEquals(localParts("2026-11-22T00:00:00").time, "12:00 AM");
 });
 
 Deno.test("isExpired boundary at 2027-01-30T23:00Z", () => {
@@ -234,11 +306,11 @@ Deno.test("force test: flips one stored-sold-out session through real diff, labe
   assertEquals(sessions.filter((s) => s.state === "available").length, 0);
   const d = diff(flipped.sessions, store);
   assertEquals(d.opened.map((s) => s.id), [flipped.flippedId]);
-  const msg = buildMessage(d.opened, { test: true });
+  const msg = buildMessage(d.opened, { test: true, nowMs: NOW, allSessions: flipped.sessions });
   assert(!("content" in msg));
   assert(msg.embeds[0].title.startsWith("TEST · "));
   assertEquals(msg.embeds[0].color, COLOR_TEST);
-  assertStringIncludes(msg.embeds[0].description, "This is a test.");
+  assertStringIncludes(msg.embeds[0].description, "Test alert.");
   assertEquals(msg.allowed_mentions, { parse: [] });
   // nothing flippable on an empty store
   assertEquals(flipForTest(sessions, new Map(), NOW), null);

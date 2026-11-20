@@ -134,7 +134,9 @@ Deno.serve(async (req) => {
       return json({ error: "force_test: nothing to flip" });
     }
     const d = diff(flipped.sessions, stored);
-    const sent = await sendDiscord(buildMessage(d.opened, { test: true }));
+    const sent = await sendDiscord(
+      buildMessage(d.opened, { test: true, nowMs: checkedAt, allSessions: flipped.sessions }),
+    );
     if (sent.ok) {
       await patchStatus({ force_test: false, last_alert_at: new Date().toISOString(), last_error: null });
     } else {
@@ -149,7 +151,7 @@ Deno.serve(async (req) => {
 
   let alerted = false;
   if (d.opened.length > 0) {
-    const sent = await sendDiscord(buildMessage(d.opened));
+    const sent = await sendDiscord(buildMessage(d.opened, { nowMs: checkedAt, allSessions: sessions }));
     if (!sent.ok) {
       // C6: Discord failure does not back off Eventbrite; state not written so next run retries.
       await patchStatus({ last_checked_at: new Date().toISOString(), last_error: sent.detail });
