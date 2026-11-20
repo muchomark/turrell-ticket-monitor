@@ -175,9 +175,8 @@ Deno.test("message: styled embed, grouped by day, no mentions, within Discord li
   const msg = buildMessage(opened, { nowIso: "2026-11-20T18:00:00.000Z" });
   assertEquals(msg.allowed_mentions, { parse: [] });
   assertEquals(msg.username, "Turrell Watch");
-  assert(msg.content.length <= 2000);
-  assertStringIncludes(msg.content, "25 free sessions");
-  assertStringIncludes(msg.content, "Earliest: Fri, Nov 20 · 12:00 PM ET");
+  assertEquals(Object.keys(msg).sort(), ["allowed_mentions", "embeds", "username"]); // embed only, no content
+  assertEquals(msg.embeds.length, 1);
   const e = msg.embeds[0];
   assertEquals(e.color, COLOR_LIVE);
   assertEquals(e.url, opened[0].url);
@@ -196,7 +195,8 @@ Deno.test("message: styled embed, grouped by day, no mentions, within Discord li
   assert(!all.includes("@everyone") && !all.includes("@here"));
   assert(JSON.stringify(e).length < 6000);
   // singular copy
-  assertStringIncludes(buildMessage(opened.slice(0, 1)).content, "1 free session at");
+  assertStringIncludes(e.description, "**25 free sessions**");
+  assertStringIncludes(buildMessage(opened.slice(0, 1)).embeds[0].description, "**1 free session**");
 });
 
 Deno.test("message: very many sessions are capped with an event-page link", async () => {
@@ -235,8 +235,7 @@ Deno.test("force test: flips one stored-sold-out session through real diff, labe
   const d = diff(flipped.sessions, store);
   assertEquals(d.opened.map((s) => s.id), [flipped.flippedId]);
   const msg = buildMessage(d.opened, { test: true });
-  assertStringIncludes(msg.content, "TEST");
-  assertStringIncludes(msg.content, "No tickets opened");
+  assert(!("content" in msg));
   assert(msg.embeds[0].title.startsWith("TEST · "));
   assertEquals(msg.embeds[0].color, COLOR_TEST);
   assertStringIncludes(msg.embeds[0].description, "This is a test.");

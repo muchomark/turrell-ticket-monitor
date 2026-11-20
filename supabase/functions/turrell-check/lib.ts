@@ -8,7 +8,6 @@ export const EVENT_URL =
 export const END_UTC_MS = Date.parse("2027-01-30T23:00:00Z");
 export const MAX_PAGES = 5;
 export const FETCH_TIMEOUT_MS = 15_000;
-export const DISCORD_LIMIT = 2000;
 export const USER_AGENT =
   "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0 Safari/537.36";
 
@@ -220,7 +219,6 @@ export interface DiscordEmbed {
 
 export interface DiscordPayload {
   username: string;
-  content: string;
   embeds: DiscordEmbed[];
   allowed_mentions: { parse: never[] };
 }
@@ -247,8 +245,8 @@ function sessionLines(sessions: Session[]): string[] {
 }
 
 /**
- * C6: one message, no mentions. A short plain-text line drives the push-notification preview;
- * the embed carries sessions grouped by day (each time is a link) and one primary CTA.
+ * C6: one embed-only message (no plain-text content), no mentions. The embed carries sessions
+ * grouped by day (each time is a link) and one primary CTA.
  */
 export function buildMessage(
   opened: Session[],
@@ -258,11 +256,6 @@ export function buildMessage(
   const sessionsWord = `${n} free session${n === 1 ? "" : "s"}`;
   const first = opened[0];
   const ctaUrl = first?.url ?? EVENT_URL;
-  const firstWhen = first ? formatLocal(first.startLocal) : "";
-
-  const content = opts.test
-    ? `TEST · This is what a Turrell ticket alert looks like. No tickets opened.`
-    : `Turrell tickets just opened: ${sessionsWord} at Almine Rech NY. Earliest: ${firstWhen}`;
 
   const intro = opts.test
     ? "**This is a test.** One sold-out session was flipped in memory to preview the alert. Nothing is actually available."
@@ -282,7 +275,6 @@ export function buildMessage(
 
   return {
     username: "Turrell Watch",
-    content: content.slice(0, DISCORD_LIMIT),
     embeds: [{
       title: `${opts.test ? "TEST · " : ""}Tickets open: James Turrell at Almine Rech`,
       url: opts.test ? EVENT_URL : ctaUrl,
