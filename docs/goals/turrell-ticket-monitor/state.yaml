@@ -334,6 +334,14 @@ followups:
         - cmd: "force_health_test run"
           status: pass
           detail: "discord 200 at 18:15:00Z; next run at 18:15:30Z healthy (278 sessions)"
+  - id: T009
+    type: pm
+    assignee: PM
+    status: done
+    objective: "Investigate the monitor going down on 2026-11-22."
+    receipt:
+      result: done
+      summary: "Down 17:02-17:15 UTC with 'Signal timed out'. Not a block: the series API's first page took ~10.6s (page 2 took ~1s) and exceeded the 15s timeout from Supabase. Fixes: 25s timeout, overlap lock with run_finished_at and a 120s stale lease, 5-min backoff cap for timeouts/5xx, pg_net timeout 60s, last_duration_ms. Recovered 17:15:37; runs every 30s since; health recovered alert sent 17:15:40. 25/25 tests pass. Commit 6523adb."
 
 checks:
   dirty_fingerprint: unknown
