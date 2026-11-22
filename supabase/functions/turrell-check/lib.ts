@@ -7,7 +7,8 @@ export const EVENT_URL =
 /** Series ends 2027-01-30 18:00 America/New_York. After this the monitor no-ops. */
 export const END_UTC_MS = Date.parse("2027-01-30T23:00:00Z");
 export const MAX_PAGES = 5;
-export const FETCH_TIMEOUT_MS = 15_000;
+// Eventbrite's first page (200 sessions with availability) has been observed taking 10+ s.
+export const FETCH_TIMEOUT_MS = 25_000;
 export const USER_AGENT =
   "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0 Safari/537.36";
 
@@ -551,6 +552,11 @@ export function flipForTest(
   };
 }
 
-export function backoffMinutes(consecutiveFailures: number): number {
-  return Math.min(2 ** Math.max(consecutiveFailures, 1), 30);
+/**
+ * Exponential backoff. Blocks/rate limits back off up to 30 min (be polite, avoid escalation);
+ * slowness/timeouts and 5xx cap at 5 min so a sluggish Eventbrite API doesn't blind the monitor.
+ */
+export function backoffMinutes(consecutiveFailures: number, kind: FailureKind = "blocked"): number {
+  const cap = kind === "network" || kind === "server" ? 5 : 30;
+  return Math.min(2 ** Math.max(consecutiveFailures, 1), cap);
 }

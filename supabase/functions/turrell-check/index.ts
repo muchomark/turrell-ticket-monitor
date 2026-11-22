@@ -1,5 +1,6 @@
 // Supabase Edge Function: checks the Eventbrite series and posts a Discord alert
 // whenever any session goes sold-out -> available. Invoked by pg_cron every 30 seconds.
+// Runs never overlap: a run is claimed atomically and released when it finishes.
 import "jsr:@supabase/functions-js@2/edge-runtime.d.ts";
 import { createClient } from "npm:@supabase/supabase-js@2";
 import {
@@ -64,7 +65,7 @@ async function sendDiscord(payload: DiscordPayload): Promise<{ ok: boolean; deta
   return { ok: false, detail: "discord retry exhausted" };
 }
 
-Deno.serve(async (req) => {
+async function handle(req: Request, onClaimed: (release: () => Promise<unknown>) => void): Promise<Response> {
   const db = createClient(Deno.env.get("SUPABASE_URL")!, serviceKey(), {
     auth: { persistSession: false },
   });
@@ -81,7 +82,14 @@ Deno.serve(async (req) => {
   const { data: claimRows, error: claimErr } = await db.rpc("turrell_claim_run");
   if (claimErr) return json({ error: `claim: ${claimErr.message}` }, 500);
   const status = Array.isArray(claimRows) ? claimRows[0] : claimRows;
-  if (!status) return json({ skipped: "throttled" });
+  if (!status) return json({ skipped: "throttled or previous run still in progress" });
+  const startedAt = Date.now();
+  onClaimed(async () => {
+    await db.from("turrell_monitor_status").update({
+      run_finished_at: new Date().toISOString(),
+      last_duration_ms: Date.now() - startedAt,
+    }).eq("id", 1);
+  });
 
   const patchStatus = (patch: Record<string, unknown>) =>
     db.from("turrell_monitor_status").update(patch).eq("id", 1);
@@ -163,8 +171,9 @@ Deno.serve(async (req) => {
     const err = e as Error;
     const failures = (status.consecutive_failures ?? 0) + 1;
     const backoff = err instanceof UpstreamError && err.backoff;
+    const kind = err instanceof UpstreamError ? err.kind : "network";
     const backoffUntil = backoff
-      ? new Date(Date.now() + backoffMinutes(failures) * 60_000).toISOString()
+      ? new Date(Date.now() + backoffMinutes(failures, kind) * 60_000).toISOString()
       : null;
     await patchStatus({
       last_checked_at: new Date().toISOString(),
@@ -174,7 +183,7 @@ Deno.serve(async (req) => {
     });
     console.error("fetch failed", err.message);
     await healthOnFailure(
-      err instanceof UpstreamError ? err.kind : "network",
+      kind,
       err.message,
       failures,
       backoffUntil,
@@ -269,4 +278,14 @@ Deno.serve(async (req) => {
     mismatches: d.mismatches.length,
     unknown: d.unknowns.length,
   });
+}
+
+Deno.serve(async (req) => {
+  const lease: { release?: () => Promise<unknown> } = {};
+  try {
+    return await handle(req, (release) => (lease.release = release));
+  } finally {
+    // Mark the run finished so the next one may start (overlap lock), on every exit path.
+    if (lease.release) await lease.release().catch((e) => console.error("release failed", e));
+  }
 });

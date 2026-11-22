@@ -1,5 +1,6 @@
 import { assert, assertEquals, assertRejects, assertStringIncludes } from "@std/assert";
 import {
+  backoffMinutes,
   buildHealthMessage,
   buildMessage,
   classify,
@@ -11,6 +12,7 @@ import {
   diff,
   END_UTC_MS,
   EVENT_URL,
+  FETCH_TIMEOUT_MS,
   fetchAllPages,
   flipForTest,
   formatLocal,
@@ -382,4 +384,15 @@ Deno.test("health: reminder, recovered, format and test variants", () => {
   const t = buildHealthMessage("down", { kind: "blocked", nowIso, test: true }).embeds[0];
   assert(t.title.startsWith("TEST · "));
   assertStringIncludes(t.description, "Nothing is actually wrong.");
+});
+
+Deno.test("backoff: slowness caps at 5 min, blocks/rate limits at 30", () => {
+  assertEquals([1, 2, 3, 4, 8].map((n) => backoffMinutes(n, "network")), [2, 4, 5, 5, 5]);
+  assertEquals(backoffMinutes(3, "server"), 5);
+  assertEquals([1, 3, 5, 9].map((n) => backoffMinutes(n, "blocked")), [2, 8, 30, 30]);
+  assertEquals(backoffMinutes(6, "rate_limited"), 30);
+});
+
+Deno.test("fetch timeout allows Eventbrite's slow first page (observed ~10.6s)", () => {
+  assert(FETCH_TIMEOUT_MS >= 20_000);
 });

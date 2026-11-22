@@ -32,7 +32,7 @@ by CloudFront for up to 12 hours. Only the per-child `ticket_availability` is tr
 as a *mismatch*: it never alerts, and it's stored as not available, so a later real reopening still alerts. A run that fails partway (an HTTP error, a bot challenge, a missing page, a count
 mismatch, or more than 50% unparseable sessions) writes nothing and alerts nobody.
 
-**Staying unblocked:** about 4 GETs a minute from a single IP, with jitter. HTTP 403/429/5xx, a challenge page or a timeout triggers exponential backoff (2, 4, 8… up to 30 min). It never rotates IPs or retries harder to get around a block.
+**Staying unblocked:** about 4 GETs a minute from a single IP, with jitter. HTTP 403/429 or a challenge page triggers exponential backoff (2, 4, 8… up to 30 min). Timeouts and 5xx back off up to 5 min, since they usually mean Eventbrite is slow, not that we're blocked. Each request may take up to 25 s (Eventbrite's first page has been seen taking 10+ s), and runs never overlap. It never rotates IPs or retries harder to get around a block.
 
 ## Setup (one time)
 
@@ -60,7 +60,7 @@ mismatch, or more than 50% unparseable sessions) writes nothing and alerts nobod
 It can't alert you if the Supabase project itself is paused or deleted, because nothing runs then. You can also check health directly:
 
 ```sql
-select last_ok_at, last_checked_at, last_error, consecutive_failures, backoff_until,
+select last_ok_at, last_checked_at, last_error, consecutive_failures, backoff_until, last_duration_ms,
        sessions_total, sessions_available, last_alert_at
 from turrell_monitor_status;
 ```
